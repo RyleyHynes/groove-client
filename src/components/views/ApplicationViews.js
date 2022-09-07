@@ -4,6 +4,7 @@ import { Register } from "../auth/Register"
 import { Home } from "../home/Home"
 import { FridaySchedule } from "../schedule/FridaySchedule"
 import { ScheduleDay } from "../schedule/ScheduleDay"
+import { SaturdaySchedule } from "../schedule/SaturdaySchedule"
 
 import { Authorized } from "./Authorized"
 
@@ -17,6 +18,9 @@ export const ApplicationViews = () => {
 	<Route path="/home" element={<Home />} />
 	<Route path="/lineupDay" element={<ScheduleDay />} />
 	<Route path="/fridayLineup" element={<FridaySchedule />} />
+	<Route path="/saturdayLineup" element={<SaturdaySchedule />} />
+	<Route path="/myFridayLineup" element={<MyFridaySchedule />} />
+	<Route path="/mySaturdayLineup" element={<MySaturdaySchedule />} />
 	</Route>
 	</Routes>
 	</>
