@@ -19,30 +19,32 @@ export const Register = ({ setToken, setUserId }) => {
 
         if (password.current.value === verifyPassword.current.value) {
             const newUser = {
-                "username": username.current.value,
-                "first_name": firstName.current.value,
-                "last_name": lastName.current.value,
-                "email": email.current.value,
-                "bio": bio.current.value,
-                "password": password.current.value
+                username: username.current.value,
+                first_name: firstName.current.value,
+                last_name: lastName.current.value,
+                email: email.current.value,
+                bio: bio.current.value,
+                password: password.current.value
             }
 
             registerUser(newUser)
-            .then(res => {
-                if ("token" in res) {
-                    localStorage.setItem("groove_token", res.token)
-                    navigate("/")
-                }
-            })
-    } else {
-        passwordDialog.current.showModal()
+                .then(res => {
+                    if ("valid" in res && res.valid) {
+                        setToken(res.token)
+                        localStorage.setItem("is_staff", res.is_staff)
+                        setUserId(res.user_id)
+                        .then(()=> navigate("/home"))
+                    }
+                })
+        } else {
+            passwordDialog.current.showModal()
+        }
     }
-}
 
     return (
         <section className="columns is-centered">
             <form className="column is-two-thirds" onSubmit={handleRegister}>
-                <h1 className="title">Groove Fest</h1>
+                <h1 className="title">Groove Fest 2022</h1>
                 <p className="subtitle">Create an account</p>
                 <div className="field">
                     <label className="label">First Name</label>
