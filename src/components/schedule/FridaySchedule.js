@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom"
 import { getFridaySchedule } from "../managers/ScheduleManager"
 import { createShow } from "../managers/ShowManager"
 
-export const FridaySchedule = () => {
+export const FridaySchedule = ({ token, setToken, setStaff }) => {
     const [shows, setShows] = useState([])
     const [addShow, setAddShow] = useState(false)
+    const [staff, setStaffState] = useState()
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        setStaffState(localStorage.getItem("is_staff"))
+    }, [setStaff])
     useEffect(() => {
         getFridaySchedule().then(data => setShows(data))
     }, [])
@@ -23,16 +27,19 @@ export const FridaySchedule = () => {
 
     }
 
-    const currentUser = (localStorage.getItem('user_id'))
-
     return (
         <>
 
+            {
+                (staff === "true")
+                    ?
+                    <>
+                        <button onClick={() => navigate("/addShowForm")}>Add Show</button>
+                    </>
+                    :
+                    <>
 
-            if(currentUser.is_staff = true) {
-                ? <button onClick={() => navigate("/addShowForm")}>Add Show</button>
-            } else {
-
+                    </>
             }
 
             <button onClick={() => navigate("/fridaySchedule")}>Friday</button>

@@ -29,8 +29,22 @@ export const createShow = (show) => {
         .then(res => res.json())
 }
 
+
+
+export const createNewShow = (show) => {
+    return fetch("http://localhost:8000/shows", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Token ${localStorage.getItem('groove_token')}`
+        },
+        body: JSON.stringify(show)
+    })
+        .then(res => res.json())
+}
+
 export const editShow = (showId, show) => {
-    return fetch(`http://localhost:8000/games/${showId}`, {
+    return fetch(`http://localhost:8000/shows/${showId}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${localStorage.getItem("groove_token")}`,
