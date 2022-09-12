@@ -23,8 +23,17 @@ export const FridaySchedule = () => {
 
     }
 
+    const currentUser = (localStorage.getItem('user_id'))
+
     return (
         <>
+
+
+            if(currentUser.is_staff = true) {
+                ? <button onClick={() => navigate("/addShowForm")}>Add Show</button>
+            } else {
+
+            }
 
             <button onClick={() => navigate("/fridaySchedule")}>Friday</button>
             <button onClick={() => navigate("/saturdaySchedule")}>Saturday</button>

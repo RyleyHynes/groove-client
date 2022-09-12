@@ -1,5 +1,5 @@
-export const getMyShows = (date) => {
-    return fetch(`http://localhost:8000/myshows?show_date=${date}`, {
+export const getMyShows = () => {
+    return fetch(`http://localhost:8000/myshows`, {
         headers: {
             'Authorization': `Token ${localStorage.getItem('groove_token')}`
         }
