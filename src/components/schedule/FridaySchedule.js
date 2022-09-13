@@ -1,0 +1,92 @@
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { getFridaySchedule } from "../managers/ScheduleManager"
+import { deleteShow } from "../managers/ShowManager"
+import { createShow } from "../managers/ShowManager"
+
+export const FridaySchedule = ({ token, setToken, setStaff }) => {
+    const [shows, setShows] = useState([])
+    const [addShow, setAddShow] = useState(false)
+    const [staff, setStaffState] = useState()
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        setStaffState(localStorage.getItem("is_staff"))
+    }, [setStaff])
+    useEffect(() => {
+        getFridaySchedule().then(data => setShows(data))
+    }, [])
+
+    const handleAddShow = (evt) => {
+        evt.preventDefault()
+        const show = { show_id: evt.target.id }
+        setAddShow(evt.target.id)
+        createShow(show).then((data) => {
+            setAddShow(data)
+        })
+
+    }
+    const refreshPage = () => {
+        window.location.reload(false);
+    }
+
+    return (
+        <>
+
+            {
+                (staff === "true")
+                    ?
+                    <>
+                        <button onClick={() => navigate("/addShowForm")}>Add Show</button>
+                    </>
+                    :
+                    <>
+
+                    </>
+            }
+
+            <button onClick={() => navigate("/fridaySchedule")}>Friday</button>
+            <button onClick={() => navigate("/saturdaySchedule")}>Saturday</button>
+
+            <h2>Friday Groove</h2>
+            <article>
+                <ul>
+                    {shows.map((show) => {
+                        return (
+                            <div key={`show-${show.id}`}>
+                                <section key={`show-${show.id}`}>
+                                    <div>
+                                        <img src={show?.artist.artist_image} alt='show'></img>
+                                    </div>
+                                    <div><b>Artist:</b>{show?.artist.artist_name}</div>
+                                    <div><b>Genre:</b>{show?.artist.genre}</div>
+                                    <div><b>Description:</b>{show?.artist.artist_description}</div>
+                                    <div><b>Stage:</b>{show?.stage.stage_name}</div>
+                                    <div><b>Show Time:</b>{show.readable_start_time}-{show.readable_end_time}</div>
+                                    <button id={show.id} onClick={handleAddShow}>Add to MyLineup</button>
+                                    {
+                                        (staff === "true")
+                                            ?
+                                            <>
+                                                <button className="button is-warning" onClick={() => navigate(`/shows/${show.id}/edit`)}>edit</button>
+                                                <button className="deleteButton" onClick={() => {
+                                                    refreshPage()
+                                                    deleteShow(show.id).then(getFridaySchedule().then(setShows))
+                                                }}>Delete</button>
+                                            </>
+                                            :
+                                            <>
+
+                                            </>
+                                    }
+                                </section>
+                            </div>
+                        )
+                    })}
+                </ul>
+            </article>
+        </>
+    )
+
+}
