@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { getArtists } from "../managers/ArtistManager"
 import { createNewShow} from "../managers/ShowManager"
 import { getStages } from "../managers/StageManager"
 
@@ -7,19 +8,18 @@ import { getStages } from "../managers/StageManager"
 export const ShowForm = () => {
     const navigate = useNavigate()
     const [stages, setStages] = useState([])
+    const [artists, setArtists] = useState([])
 
     useEffect(() => {
         getStages().then(data => setStages(data))
+        getArtists().then(data => setArtists(data))
     }, [])
 
     const [currentShow, setCurrentShow] = useState({
-        artist_name: "",
-        genre: "",
-        artist_description: "",
+        artist: 0,
         date: "",
         start_time: "",
-        stage: 0,
-        artist_image: ""
+        stage: 0
     })
 
     const changeShowState = (domEvent) => {
@@ -33,26 +33,16 @@ export const ShowForm = () => {
         <form className="showForm">
             <h2 className="showForm__artist_name">Create New Show</h2>
             <fieldset>
-                <div className="form-group">
-                <label htmlFor="artist_name">Artist: </label>
-                <input type="text" name="artist_name" required autoFocus className="form-control" value={currentShow.artist_name}
-                    onChange={changeShowState} />
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div className="form-group">
-            <label htmlFor="genre">Genre: </label>
-                <input type="text" name="genre" required autoFocus className="form-control" value={currentShow.genre}
-                    onChange={changeShowState} />
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div className="form-group">
-                <label htmlFor="artist_description">Description: </label>
-                <input type="text" name="artist_description" required autoFocus className="form-control" value={currentShow.artist_description}
-                    onChange={changeShowState} />
+                <div>
+                <label htmlFor="artist">Artist: </label>
+                    <select className="form-control" name="artist" value={currentShow.artist} required onChange={changeShowState}>
+                    <option value="0">Choose Artist</option>
+                    {
+                        artists.map(artist => {
+                            return <option value={artist.id} key={`artist--${artist.id}`}>{artist.artist_name}</option>
+                        })
+                    }
+                    </select>
                 </div>
             </fieldset>
 
@@ -87,25 +77,14 @@ export const ShowForm = () => {
                 </div>
             </fieldset>
 
-            <fieldset>
-                <label htmlFor="artist_image">Artist Image(URL): </label>
-                <div>
-                <input type="text" name="artist_image" required className="form-control" value={currentShow.artist_image}
-                        onChange={changeShowState} />
-                </div>
-            </fieldset>
-
             <button type="submit" onClick={event => {
                 event.preventDefault()
 
                 const show = {
-                    artist_name: currentShow.artist_name,
-                    genre: currentShow.genre,
-                    artist_description: currentShow.artist_description,
+                    artist: parseInt(currentShow.artist),
                     date: currentShow.numberOfPlayers,
                     start_time: currentShow.start_time,
-                    stage: parseInt(currentShow.stage),
-                    artist_image: currentShow.artist_image
+                    stage: parseInt(currentShow.stage)
                 }
                 /*Send post request to API*/
                 createNewShow(show)

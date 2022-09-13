@@ -46,9 +46,13 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                                 <Link to="/fridaySchedule" className="navbar-item">Groove Schedule</Link>
                                 <Link to="/myFridaySchedule" className="navbar-item">My Schedule</Link>
                                 <Link to={`/profiles/${localStorage.getItem("user_id")}`} className="navbar-item">Profile</Link> 
-                                { staff === "true"
-                                    ? <Link to="/profiles" className="navbar-item">User Profiles</Link>
-                                    : <></>
+                                {staff === "true"
+                                ?
+                                <>
+                                <Link to="/profiles" className="navbar-item">User Profiles</Link>
+                                <Link to="/artistList" className="navbar-item">Artist List</Link>
+                                </>
+                                    :  <></>
                                 }
                             </>
                             :

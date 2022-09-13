@@ -1,4 +1,7 @@
 import { Routes, Route } from "react-router-dom"
+import { ArtistForm } from "../artists/ArtistForm"
+import { ArtistList } from "../artists/ArtistList"
+import { EditArtist } from "../artists/EditArtistForm"
 import { Login } from "../auth/Login"
 import { Register } from "../auth/Register"
 import { Home } from "../home/Home"
@@ -21,10 +24,17 @@ export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
 			<Route element={<Authorized token={token} />}>
 				{/* Add Routes here */}
 				<Route path="/home" element={<Home />} />
+
 				<Route path="/fridaySchedule" element={<FridaySchedule />} />
 				<Route path="/saturdaySchedule" element={<SaturdaySchedule />} />
 				<Route path="/myFridaySchedule" element={<MyFridaySchedule />} />
+				
 				<Route path="/addShowForm" element={<ShowForm />} />
+
+				<Route path="/addArtistForm" element={<ArtistForm />} />
+				<Route path="/artistList" element={<ArtistList />} />
+				<Route path="/artists/:artistId/edit" element={<EditArtist />} />
+
 				<Route path="/profiles" element={<ProfileList />} />
 				<Route path="/profiles/:profileId" element={<ProfileDetails />} />
 			</Route>
