@@ -30,7 +30,7 @@ export const EditShow = () => {
     const handleSubmit = (evt) => {
         evt.preventDefault()
         updateShow(showId, show).then((data) => {
-            navigate(`/fridaySchedule/${showId}`)
+            navigate("/fridaySchedule")
         })
     }
 
