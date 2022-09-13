@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getFridaySchedule } from "../managers/ScheduleManager"
+import { deleteShow } from "../managers/ShowManager"
 import { createShow } from "../managers/ShowManager"
 
 export const FridaySchedule = ({ token, setToken, setStaff }) => {
@@ -25,6 +26,9 @@ export const FridaySchedule = ({ token, setToken, setStaff }) => {
             setAddShow(data)
         })
 
+    }
+    const refreshPage = () => {
+        window.location.reload(false);
     }
 
     return (
@@ -61,6 +65,21 @@ export const FridaySchedule = ({ token, setToken, setStaff }) => {
                                     <div><b>Stage:</b>{show?.stage.stage_name}</div>
                                     <div><b>Show Time:</b>{show.readable_start_time}-{show.readable_end_time}</div>
                                     <button id={show.id} onClick={handleAddShow}>Add to MyLineup</button>
+                                    {
+                                        (staff === "true")
+                                            ?
+                                            <>
+                                                <button className="button is-warning" onClick={() => navigate(`/shows/${show.id}/edit`)}>edit</button>
+                                                <button className="deleteButton" onClick={() => {
+                                                    refreshPage()
+                                                    deleteShow(show.id).then(getFridaySchedule().then(setShows))
+                                                }}>Delete</button>
+                                            </>
+                                            :
+                                            <>
+
+                                            </>
+                                    }
                                 </section>
                             </div>
                         )

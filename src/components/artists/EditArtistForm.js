@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router"
 import { getSingleArtist, updateArtist } from "../managers/ArtistManager"
 
 export const EditArtist = () => {
-    const [artist, editArtist] = useState({
+    const [artist, setArtist] = useState({
         artist_name: "",
         genre: "",
         artist_description: "",
@@ -14,15 +14,9 @@ export const EditArtist = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        getSingleArtist().then(data => editArtist(data))
+        getSingleArtist(artistId).then(data => setArtist(data))
     }, [artistId])
 
-    // const changeArtistState = (domEvent) => {
-    //     // TODO: Complete the onChange function
-    //     const copyUpdatedArtist = { ...artist }
-    //     copyUpdatedArtist[domEvent.target.name] = domEvent.target.value
-    //     editArtist(copyUpdatedArtist)
-    // }
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
@@ -34,7 +28,7 @@ export const EditArtist = () => {
     const changeArtistState = (event) => {
         const artistCopy = { ...artist }
         artistCopy[event.target.name] = event.target.value
-        editArtist(artistCopy)
+        setArtist(artistCopy)
     }
     return <>
         <form className="artistForm">
@@ -100,5 +94,4 @@ export const EditArtist = () => {
             <button onClick={() => navigate("/artistList")}>Cancel</button>
         </form>
     </>
-
 }

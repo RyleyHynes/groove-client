@@ -16,10 +16,10 @@ export const ShowForm = () => {
     }, [])
 
     const [currentShow, setCurrentShow] = useState({
-        artist: 0,
+        artistId: 0,
         date: "",
         start_time: "",
-        stage: 0
+        stageId: 0
     })
 
     const changeShowState = (domEvent) => {
@@ -34,7 +34,7 @@ export const ShowForm = () => {
             <h2 className="showForm__artist_name">Create New Show</h2>
             <fieldset>
                 <div>
-                <label htmlFor="artist">Artist: </label>
+                <label htmlFor="artistId">Artist: </label>
                     <select className="form-control" name="artist" value={currentShow.artist} required onChange={changeShowState}>
                     <option value="0">Choose Artist</option>
                     {
@@ -58,14 +58,14 @@ export const ShowForm = () => {
                 <div>
                 <label htmlFor="start_time">Start Time: </label>
                 <input type="time" id="appt" name="start_time"
-                    min="09:00" max="18:00" required className="form-control" value={currentShow.start_time}
+                    min="09:00:00" max="18:00:00" required className="form-control" value={currentShow.start_time}
                     onChange={changeShowState} />
                 </div>
             </fieldset>
 
             <fieldset>
                 <div>
-                <label htmlFor="stage">Stage: </label>
+                <label htmlFor="stageId">Stage: </label>
                     <select className="form-control" name="stage" value={currentShow.stage} required onChange={changeShowState}>
                     <option value="0">Choose Stage</option>
                     {
@@ -82,7 +82,7 @@ export const ShowForm = () => {
 
                 const show = {
                     artist: parseInt(currentShow.artist),
-                    date: currentShow.numberOfPlayers,
+                    date: currentShow.date,
                     start_time: currentShow.start_time,
                     stage: parseInt(currentShow.stage)
                 }

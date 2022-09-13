@@ -43,7 +43,7 @@ export const createNewShow = (show) => {
         .then(res => res.json())
 }
 
-export const editShow = (showId, show) => {
+export const updateShow = (showId, show) => {
     return fetch(`http://localhost:8000/shows/${showId}`, {
         method: "PUT",
         headers: {

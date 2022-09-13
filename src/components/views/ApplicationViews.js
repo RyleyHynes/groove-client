@@ -11,6 +11,7 @@ import { ProfileList } from "../profle/ProfileList"
 import { FridaySchedule } from "../schedule/FridaySchedule"
 import { SaturdaySchedule } from "../schedule/SaturdaySchedule"
 import { ShowForm } from "../show/AddShowForm"
+import { EditShow } from "../show/EditShowForm"
 
 import { Authorized } from "./Authorized"
 
@@ -30,6 +31,7 @@ export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
 				<Route path="/myFridaySchedule" element={<MyFridaySchedule />} />
 				
 				<Route path="/addShowForm" element={<ShowForm />} />
+				<Route path="/shows/:showId/edit" element={<EditShow />} />
 
 				<Route path="/addArtistForm" element={<ArtistForm />} />
 				<Route path="/artistList" element={<ArtistList />} />

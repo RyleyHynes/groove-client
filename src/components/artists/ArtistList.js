@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getArtists } from "../managers/ArtistManager"
+import { deleteArtist, getArtists } from "../managers/ArtistManager"
+
 
 export const ArtistList = ({ setStaff }) => {
     const [artists, setArtists] = useState([])
@@ -10,10 +11,15 @@ export const ArtistList = ({ setStaff }) => {
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
     }, [setStaff])
+
     useEffect(() => {
         getArtists().then(data => setArtists(data))
     }, [])
-    //should I be watching something for this? name a case in my project where I might want something in the dependency array
+
+    const refreshPage = () => {
+        window.location.reload(false);
+    }
+
 
     return (
         <>
@@ -41,7 +47,21 @@ export const ArtistList = ({ setStaff }) => {
                                     <div><b>Artist:</b>{artist.artist_name}</div>
                                     <div><b>Genre:</b>{artist.genre}</div>
                                     <div><b>Description:</b>{artist.artist_description}</div>
-                                    <button className="button is-warning" onClick={() => navigate(`/artists/${artist.id}/edit`)}>edit</button>
+                                    {
+                                        (staff === "true")
+                                            ?
+                                            <>
+                                                <button className="button is-warning" onClick={() => navigate(`/artists/${artist.id}/edit`)}>edit</button>
+                                                <button className="deleteButton" onClick={() => {
+                                                    refreshPage()
+                                                    deleteArtist(artist.id).then(getArtists().then(setArtists))
+                                                }}>Delete</button>
+                                            </>
+                                            :
+                                            <>
+
+                                            </>
+                                    }
                                 </section>
                             </div>
                         )

@@ -40,8 +40,8 @@ export const updateArtist = (artistId, artist) => {
     })
 }
 
-export const deleteArtist = (id) => {
-    return fetch(`http://localhost:8000/artists/${id}`, {
+export const deleteArtist = (artistId) => {
+    return fetch(`http://localhost:8000/artists/${artistId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("groove_token")}`
