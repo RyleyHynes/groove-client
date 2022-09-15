@@ -37,7 +37,7 @@ export const ProfileDetails = (userId) => {
                                 <FaUserCircle size={'3rem'} />
                             </span>
                         </figure>
-                        : <img className="image" src={`http://localhost:8000${profile.profile_image}`} alt={profile.user?.image}/>
+                        : <img className="image" src={`http://localhost:8000${profile.profile_image}`} alt="usersProfileImage"/>
                     }
                 </header>
                 <div className="profile__fullName">Name: {profile.user?.first_name} {profile.user?.last_name}</div>
