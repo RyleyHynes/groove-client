@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { createMyShow } from "../managers/MyShowManager"
 import { getFridaySchedule } from "../managers/ScheduleManager"
 import { deleteShow } from "../managers/ShowManager"
-import { createShow } from "../managers/ShowManager"
 
 export const FridaySchedule = ({ token, setToken, setStaff }) => {
     const [shows, setShows] = useState([])
@@ -22,14 +22,12 @@ export const FridaySchedule = ({ token, setToken, setStaff }) => {
         evt.preventDefault()
         const show = { show_id: evt.target.id }
         setAddShow(evt.target.id)
-        createShow(show).then((data) => {
+        createMyShow(show).then((data) => {
             setAddShow(data)
         })
 
     }
-    const refreshPage = () => {
-        window.location.reload(false);
-    }
+    
 
     return (
         <>
@@ -70,8 +68,8 @@ export const FridaySchedule = ({ token, setToken, setStaff }) => {
                                             ?
                                             <>
                                                 <button className="button is-warning" onClick={() => navigate(`/shows/${show.id}/edit`)}>edit</button>
-                                                <button className="deleteButton" onClick={() => {
-                                                    refreshPage()
+                                                <button className="deleteButton" onClick={(evt) => {
+                                                    evt.preventDefault()
                                                     deleteShow(show.id).then(getFridaySchedule().then(setShows))
                                                 }}>Delete</button>
                                             </>

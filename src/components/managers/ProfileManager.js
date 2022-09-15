@@ -18,13 +18,24 @@ export const getProfileShows = (profileId) => {
 
 
 
-export const getSingleProfile = (id) => {
-    return fetch(`http://localhost:8000/profiles/${id}`, {
+export const getSingleProfile = (profileId) => {
+    return fetch(`http://localhost:8000/profiles/${profileId}`, {
         headers: {
             'Authorization': `Token ${localStorage.getItem('groove_token')}`
         }
     })
         .then(res => res.json())
+}
+
+export const updateProfile = (profile, profileId) => {
+    return fetch(`http://localhost:8000/profiles/${profileId}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("groove_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(profile)
+    })
 }
 
 export const editUserActive = (user) => {
@@ -49,16 +60,7 @@ export const editUserStatus = (user, status) => {
     })
 }
 
-export const editUserImage = (user, image) => {
-    return fetch(`http://localhost:8000/profiles/${user.id}/user_image`, {
-        method: "PUT",
-        headers: {
-            "Authorization": `Token ${localStorage.getItem("groove_token")}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ profile_image: image })
-    })
-}
+
 
 export const checkDemoted = (user) => {
     return fetch(`http://localhost:8000/demotes?demotedUser=${user.id}`, {

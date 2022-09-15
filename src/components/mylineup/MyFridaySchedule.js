@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getMyShows } from "../managers/ShowManager"
+import { deleteMyShow, getMyShows } from "../managers/MyShowManager"
 
 export const MyFridaySchedule = () => {
     const navigate = useNavigate()
@@ -21,14 +21,15 @@ export const MyFridaySchedule = () => {
         setMySaturdayShows(saturdayShows)
         setMyFridayShows(fridayShows)
     }
-
-    useEffect(() => {
+    const getShows = () => {
         getMyShows().then(data => {
             
-            sortShows(data[0])
-        })
+            sortShows(data[0])})
+    }
+    useEffect(() => {
+        
+        getShows()
     }, [])
-
 
     
     return (
@@ -53,6 +54,10 @@ export const MyFridaySchedule = () => {
                                             <div><b>Description:</b> {show?.artist?.artist_description}</div>
                                             <div><b>Stage:</b> {show?.stage?.stage_name}</div>
                                             <div><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
+                                            <button className="deleteButton" onClick={(evt) => {
+                                                    evt.preventDefault()
+                                                    deleteMyShow(show.id).then(getShows)
+                                                }}>Delete</button>
                                         </section>
                                     </div>
                                 )
@@ -77,7 +82,11 @@ export const MyFridaySchedule = () => {
                                         <div><b>Genre:</b> {show?.artist?.genre}</div>
                                         <div><b>Description:</b> {show?.artist?.artist_description}</div>
                                         <div><b>Stage:</b> {show?.stage?.stage_name}</div>
-                                        <div><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div> 
+                                        <div><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
+                                        <button className="deleteButton" onClick={(evt) => {
+                                                    evt.preventDefault()
+                                                    deleteMyShow(show.id).then(getShows)
+                                                }}>Delete</button> 
                                     </section>
                                 </div>
                             )

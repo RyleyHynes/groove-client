@@ -1,12 +1,3 @@
-export const getMyShows = () => {
-    return fetch(`http://localhost:8000/myshows`, {
-        headers: {
-            'Authorization': `Token ${localStorage.getItem('groove_token')}`
-        }
-    })
-        .then(res => res.json())
-}
-
 export const getSingleShow = (showId) => {
     return fetch(`http://localhost:8000/shows/${showId}`, {
         headers: {
@@ -15,21 +6,6 @@ export const getSingleShow = (showId) => {
     })
         .then(response => response.json())
 }
-
-
-export const createShow = (show) => {
-    return fetch("http://localhost:8000/myshows", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Token ${localStorage.getItem('groove_token')}`
-        },
-        body: JSON.stringify(show)
-    })
-        .then(res => res.json())
-}
-
-
 
 export const createNewShow = (show) => {
     return fetch("http://localhost:8000/shows", {

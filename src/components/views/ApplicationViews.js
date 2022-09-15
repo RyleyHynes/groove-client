@@ -6,6 +6,7 @@ import { Login } from "../auth/Login"
 import { Register } from "../auth/Register"
 import { Home } from "../home/Home"
 import { MyFridaySchedule } from "../mylineup/MyFridaySchedule"
+import { EditProfile } from "../profle/EditProfileForm"
 import { ProfileDetails } from "../profle/Profile"
 import { ProfileList } from "../profle/ProfileList"
 import { FridaySchedule } from "../schedule/FridaySchedule"
@@ -39,6 +40,7 @@ export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
 
 				<Route path="/profiles" element={<ProfileList />} />
 				<Route path="/profiles/:profileId" element={<ProfileDetails />} />
+				<Route path="/profiles/:profileId/edit" element={<EditProfile />} />
 			</Route>
 		</Routes>
 	</>
