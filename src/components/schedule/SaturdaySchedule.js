@@ -4,20 +4,24 @@ import { createMyShow, getMyShows } from "../managers/MyShowManager"
 import { getSaturdaySchedule } from "../managers/ScheduleManager"
 import { deleteShow } from "../managers/ShowManager"
 
-export const SaturdaySchedule = ({ token, setToken, setStaff }) => {
+export const SaturdaySchedule = ({ setStaff }) => {
     const [shows, setShows] = useState([])
     const [addShow, setAddShow] = useState(false)
     const [staff, setStaffState] = useState()
 
     const navigate = useNavigate()
 
+    const getCurrentSaturdaySchedule = () => {
+        getSaturdaySchedule().then(data => setShows(data))
+    }
+
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
     }, [setStaff])
 
     useEffect(() => {
-        getSaturdaySchedule().then(data => setShows(data))
-        getMyShows('2022-10-22').then(data => setAddShow(data))
+        getCurrentSaturdaySchedule()
+        //getMyShows('2022-10-22').then(data => setAddShow(data))
     }, [])
 
     const handleAddShow = (evt) => {
@@ -32,6 +36,18 @@ export const SaturdaySchedule = ({ token, setToken, setStaff }) => {
 
     return (
         <>
+
+            {
+                (staff === "true")
+                    ?
+                    <>
+                        <button onClick={() => navigate("/addShowForm")}>Add Show</button>
+                    </>
+                    :
+                    <>
+
+                    </>
+            }
 
             <button onClick={() => navigate("/fridaySchedule")}>Friday</button>
             <button onClick={() => navigate("/saturdaySchedule")}>Saturday</button>
@@ -59,7 +75,7 @@ export const SaturdaySchedule = ({ token, setToken, setStaff }) => {
                                                 <button className="button is-warning" onClick={() => navigate(`/shows/${show.id}/edit`)}>edit</button>
                                                 <button className="deleteButton" onClick={(evt) => {
                                                     evt.preventDefault()
-                                                    deleteShow(show.id).then(getSaturdaySchedule().then(setShows))
+                                                    deleteShow(show.id).then(getCurrentSaturdaySchedule)
                                                 }}>Delete</button>
                                             </>
                                             :

@@ -26,7 +26,7 @@ export const NavBar = ({ token, setToken, setStaff }) => {
         <nav className="navbar is-success mb-3" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <a className="navbar-item" href="/">
-                    <h1 className="title is-4">Groove Fest</h1>
+                    <h1 className="title is-4">Groove Fest</h1> 
                 </a>
 
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

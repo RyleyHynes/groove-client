@@ -21,7 +21,7 @@ export const EditArtist = () => {
     const handleSubmit = (evt) => {
         evt.preventDefault()
         updateArtist(artistId, artist).then((data) => {
-            navigate(`/artists/${artistId}`)
+            navigate(`/artistList`)
         })
     }
 

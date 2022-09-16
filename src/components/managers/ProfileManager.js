@@ -60,16 +60,17 @@ export const editUserStatus = (user, status) => {
     })
 }
 
-
-
 export const checkDemoted = (user) => {
-    return fetch(`http://localhost:8000/demotes?demotedUser=${user.id}`, {
+    return fetch(`http://localhost:8000/profiles/${user.id}/user_status`, {
+        method: 'PUT',
         headers: {
+            'Content-Type': 'application/json',
             'Authorization': `Token ${localStorage.getItem('groove_token')}`
         }
     })
-        .then(res => res.json())
 }
+
+
 
 export const createDemotion = (demote) => {
     return fetch('http://localhost:8000/demotes', {

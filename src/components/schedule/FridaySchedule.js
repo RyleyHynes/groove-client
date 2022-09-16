@@ -4,18 +4,21 @@ import { createMyShow } from "../managers/MyShowManager"
 import { getFridaySchedule } from "../managers/ScheduleManager"
 import { deleteShow } from "../managers/ShowManager"
 
-export const FridaySchedule = ({ token, setToken, setStaff }) => {
+export const FridaySchedule = ({ setStaff }) => {
     const [shows, setShows] = useState([])
     const [addShow, setAddShow] = useState(false)
     const [staff, setStaffState] = useState()
 
     const navigate = useNavigate()
 
+    const getCurrentFridaySchedule = ()=>{
+        getFridaySchedule().then(data => setShows(data))
+    }
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
     }, [setStaff])
     useEffect(() => {
-        getFridaySchedule().then(data => setShows(data))
+        getCurrentFridaySchedule()
     }, [])
 
     const handleAddShow = (evt) => {
@@ -70,7 +73,7 @@ export const FridaySchedule = ({ token, setToken, setStaff }) => {
                                                 <button className="button is-warning" onClick={() => navigate(`/shows/${show.id}/edit`)}>edit</button>
                                                 <button className="deleteButton" onClick={(evt) => {
                                                     evt.preventDefault()
-                                                    deleteShow(show.id).then(getFridaySchedule().then(setShows))
+                                                    deleteShow(show.id).then(getCurrentFridaySchedule)
                                                 }}>Delete</button>
                                             </>
                                             :

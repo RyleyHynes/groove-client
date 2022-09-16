@@ -45,7 +45,7 @@ export const EditShow = () => {
             <fieldset>
                 <div>
                 <label htmlFor="artistId">Artist: </label>
-                    <select className="form-control" name="artist" value={setEditShow.artist} required onChange={changeShowState}>
+                    <select className="form-control" name="artist" value={show.artist?.id} required onChange={changeShowState}>
                     <option value="0">Choose Artist</option>
                     {
                         artists.map(artist => {
@@ -59,7 +59,7 @@ export const EditShow = () => {
             <fieldset>
                 <div className="form-group">
                 <label htmlFor="date">Date: </label>
-                    <input type="date" name="date" required className="form-control" value={setEditShow.date}
+                    <input type="date" name="date" required className="form-control" value={show.date}
                         onChange={changeShowState} />
                 </div>
             </fieldset>
@@ -68,7 +68,7 @@ export const EditShow = () => {
                 <div>
                 <label htmlFor="start_time">Start Time: </label>
                 <input type="time" id="appt" name="start_time"
-                    min="09:00:00" max="18:00:00" required className="form-control" value={setEditShow.start_time}
+                    min="09:00:00" max="18:00:00" required className="form-control" value={show.start_time}
                     onChange={changeShowState} />
                 </div>
             </fieldset>
@@ -76,7 +76,7 @@ export const EditShow = () => {
             <fieldset>
                 <div>
                 <label htmlFor="stageId">Stage: </label>
-                    <select className="form-control" name="stage" value={setEditShow.stage} required onChange={changeShowState}>
+                    <select className="form-control" name="stage" value={show.stage?.id} required onChange={changeShowState}>
                     <option value="0">Choose Stage</option>
                     {
                         stages.map(stage => {

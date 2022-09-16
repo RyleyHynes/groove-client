@@ -127,14 +127,14 @@ export const ProfileList = (userId) => {
                                                 setStatus(false)
                                             }
                                         } />
-                                    <label for="Author">Author</label>
+                                    <label htmlFor="Author">Author</label>
                                     <input type="radio" id="Admin" name="status" value="Admin"
                                         onChange={
                                             () => {
                                                 setStatus(true)
                                             }
                                         } />
-                                    <label for="Admin">Admin</label>
+                                    <label htmlFor="Admin">Admin</label>
                                     <button onClick={() => userDemoteProcess(profile, status)}>Save</button>
                                     <button onClick={() => setUserType(0)}>Cancel</button>
                                     <br />
