@@ -3,8 +3,12 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { registerUser } from "../managers/AuthManager"
 
+/*Register is a function that accepts two props to register new users*/
 export const Register = ({ setToken, setUserId }) => {
-    const firstName = useRef()
+    /*invoking useRef and assigning its return value to several variables
+    useRef( ) allows you to persist values between rerenders.It can be used 
+    to store a mutable value that does not cause a re-render when updated */
+    const firstName = useRef() 
     const lastName = useRef()
     const email = useRef()
     const username = useRef()
@@ -12,13 +16,16 @@ export const Register = ({ setToken, setUserId }) => {
     const password = useRef()
     const verifyPassword = useRef()
     const passwordDialog = useRef()
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
+    //This function handles the registration of a new user
     const handleRegister = (e) => {
-        e.preventDefault()
-
-        if (password.current.value === verifyPassword.current.value) {
-            const newUser = {
+        e.preventDefault() //preventing browser reload/refresh
+        
+        //creating new user object if the password verification matches
+        if (password.current.value === verifyPassword.current.value) { 
+            const newUser = { 
                 username: username.current.value,
                 first_name: firstName.current.value,
                 last_name: lastName.current.value,
@@ -27,6 +34,7 @@ export const Register = ({ setToken, setUserId }) => {
                 password: password.current.value
             }
 
+            //validating the user and setting a token and userId
             registerUser(newUser)
                 .then(res => {
                     if ("valid" in res && res.valid) {
@@ -37,18 +45,21 @@ export const Register = ({ setToken, setUserId }) => {
                     }
                 })
         } else {
-            passwordDialog.current.showModal()
+            passwordDialog.current.showModal() //if validation fails, this pop up triggers
         }
     }
 
+    //HTML that user sees on the registration page
     return (
         <section className="columns is-centered">
+            {/* When the form is submitted, the handleRegister function is triggered */}
             <form className="column is-two-thirds" onSubmit={handleRegister}>
                 <h1 className="title">Groove Fest 2022</h1>
                 <p className="subtitle">Create an account</p>
                 <div className="field">
                     <label className="label">First Name</label>
                     <div className="control">
+                    {/* ref attribute = element to access it directly in the DOM. */}
                         <input className="input" type="text" ref={firstName} />
                     </div>
                 </div>
@@ -103,7 +114,8 @@ export const Register = ({ setToken, setUserId }) => {
                         <button className="button is-link" type="submit">Submit</button>
                     </div>
                     <div className="control">
-                        <Link to="/login" className="button is-link is-light">Cancel</Link>
+                        {/* cancels registration and brings you back to login */}
+                        <Link to="/login" className="button is-link is-light">Cancel</Link> 
                     </div>
                 </div>
 

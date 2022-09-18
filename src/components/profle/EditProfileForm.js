@@ -13,8 +13,10 @@ export const EditProfile = () => {
         profile_image: ""
     })
 
-
+    /*invoking useParams and assigning its return value to profileId. This hook returns an object of 
+    key/value pairs of the dynamic params from the current URL that were matched by the <Route path>*/
     const { profileId } = useParams()
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
 

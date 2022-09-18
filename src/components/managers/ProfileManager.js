@@ -1,3 +1,4 @@
+/*Getter function for all profiles*/
 export const getProfiles = () => {
     return fetch("http://localhost:8000/profiles", {
         headers: {
@@ -7,6 +8,7 @@ export const getProfiles = () => {
         .then(response => response.json())
 }
 
+/*Getter function for profile with current users shows*/
 export const getProfileShows = (profileId) => {
     return fetch(`http://localhost:8000/shows?user=${profileId}`, {
         headers: {
@@ -17,7 +19,7 @@ export const getProfileShows = (profileId) => {
 }
 
 
-
+/*Getter function for a single profile*/
 export const getSingleProfile = (profileId) => {
     return fetch(`http://localhost:8000/profiles/${profileId}`, {
         headers: {
@@ -27,6 +29,7 @@ export const getSingleProfile = (profileId) => {
         .then(res => res.json())
 }
 
+/*PUT function to update the profile*/
 export const updateProfile = (profile, profileId) => {
     return fetch(`http://localhost:8000/profiles/${profileId}`, {
         method: "PUT",
@@ -38,6 +41,7 @@ export const updateProfile = (profile, profileId) => {
     })
 }
 
+/*PUT function to edit if the user is active*/
 export const editUserActive = (user) => {
     return fetch(`http://localhost:8000/profiles/${user.id}/user_active`, {
         method: "PUT",
@@ -49,6 +53,7 @@ export const editUserActive = (user) => {
     })
 }
 
+/*PUT function to edit if the user staff status*/
 export const editUserStatus = (user, status) => {
     return fetch(`http://localhost:8000/profiles/${user.id}/user_status`, {
         method: "PUT",
@@ -60,6 +65,7 @@ export const editUserStatus = (user, status) => {
     })
 }
 
+/*PUT function to update demotion status*/
 export const checkDemoted = (user) => {
     return fetch(`http://localhost:8000/profiles/${user.id}/user_status`, {
         method: 'PUT',
@@ -71,7 +77,7 @@ export const checkDemoted = (user) => {
 }
 
 
-
+/*POST function to demote a staff member*/
 export const createDemotion = (demote) => {
     return fetch('http://localhost:8000/demotes', {
         method: 'POST',
@@ -83,6 +89,7 @@ export const createDemotion = (demote) => {
     }).then(res => res.json())
 }
 
+/*PUT function to update a demotion*/
 export const updateDemotion = (demote) => {
     return fetch(`http://localhost:8000/demotes/${demote.id}`, {
         method: 'PUT',
@@ -94,6 +101,7 @@ export const updateDemotion = (demote) => {
     })
 }
 
+/*GET Function to fetch the deactivated users*/
 export const checkDeactive = (user) => {
     return fetch(`http://localhost:8000/deactives?deactivatedUser=${user.id}`, {
         headers: {
@@ -103,6 +111,7 @@ export const checkDeactive = (user) => {
         .then(res => res.json())
 }
 
+/*POST function to deactivate a user*/
 export const createDeactive = (deactive) => {
     return fetch('http://localhost:8000/deactives', {
         method: 'POST',
@@ -114,6 +123,7 @@ export const createDeactive = (deactive) => {
     }).then(res => res.json())
 }
 
+/*PUT function to edit user deactivation*/
 export const updateDeactive = (deactive) => {
     return fetch(`http://localhost:8000/deactives/${deactive.id}`, {
         method: 'PUT',

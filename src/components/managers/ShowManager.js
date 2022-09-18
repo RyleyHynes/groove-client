@@ -1,3 +1,4 @@
+/*Getter function for a single show*/
 export const getSingleShow = (showId) => {
     return fetch(`http://localhost:8000/shows/${showId}`, {
         headers: {
@@ -7,6 +8,7 @@ export const getSingleShow = (showId) => {
         .then(response => response.json())
 }
 
+/*POST function for creating a new show*/
 export const createNewShow = (show) => {
     return fetch("http://localhost:8000/shows", {
         method: "POST",
@@ -19,6 +21,7 @@ export const createNewShow = (show) => {
         .then(res => res.json())
 }
 
+/*PUT function to edit an existing show*/
 export const updateShow = (showId, show) => {
     return fetch(`http://localhost:8000/shows/${showId}`, {
         method: "PUT",
@@ -30,6 +33,7 @@ export const updateShow = (showId, show) => {
     })
 }
 
+/*DELETE function for an existing show*/
 export const deleteShow = (id) => {
     return fetch(`http://localhost:8000/shows/${id}`, {
         method: "DELETE",

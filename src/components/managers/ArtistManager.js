@@ -1,4 +1,4 @@
-/* Getter Functions */
+/* Getter Functions for all artists and single artist*/
 export const getArtists = () => {
     return fetch("http://localhost:8000/artists", {
         headers: {
@@ -8,6 +8,7 @@ export const getArtists = () => {
     .then(res => res.json())
 }
 
+/* Getter Functions for single artist*/
 export const getSingleArtist = (artistId) => {
     return fetch(`http://localhost:8000/artists/${artistId}`, {
         headers: {
@@ -17,6 +18,7 @@ export const getSingleArtist = (artistId) => {
         .then(response => response.json())
 }
 
+/* POST Function for creation of new artist*/
 export const createNewArtist = (artist) => {
     return fetch("http://localhost:8000/artists", {
         method: "POST",
@@ -29,6 +31,7 @@ export const createNewArtist = (artist) => {
         .then(res => res.json())
 }
 
+/* PUT Function for updating an existing artist*/
 export const updateArtist = (artistId, artist) => {
     return fetch(`http://localhost:8000/artists/${artistId}`, {
         method: "PUT",
@@ -40,6 +43,7 @@ export const updateArtist = (artistId, artist) => {
     })
 }
 
+/* DELETE Function for existing artist*/
 export const deleteArtist = (artistId) => {
     return fetch(`http://localhost:8000/artists/${artistId}`, {
         method: "DELETE",

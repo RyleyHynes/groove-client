@@ -1,3 +1,4 @@
+/*POST Function for user logging in */
 export const loginUser = (user) => {
     return fetch("http://localhost:8000/login", {
         method: "POST",
@@ -9,6 +10,7 @@ export const loginUser = (user) => {
     }).then(res => res.json())
 }
 
+/*POST Function for new user registration */
 export const registerUser = (user) => {
     return fetch("http://localhost:8000/register", {
         method: "POST",

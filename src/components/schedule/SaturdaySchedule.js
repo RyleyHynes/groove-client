@@ -9,6 +9,7 @@ export const SaturdaySchedule = ({ setStaff }) => {
     const [addShow, setAddShow] = useState(false)
     const [staff, setStaffState] = useState()
 
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
     const getCurrentSaturdaySchedule = () => {

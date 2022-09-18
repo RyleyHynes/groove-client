@@ -1,17 +1,15 @@
 import { Link, useNavigate } from "react-router-dom"
-
-
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { useEffect, useRef, useState } from "react";
 
+//function for the nav bar which accepts 3 props
 export const NavBar = ({ token, setToken, setStaff }) => {
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
     const navbar = useRef()
     const hamburger = useRef()
     const [staff, setStaffState] = useState()
 
+    //getting the is_staff property out of local storage for the current user and setting it to the staff state
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
     }, [setStaff])
@@ -21,7 +19,7 @@ export const NavBar = ({ token, setToken, setStaff }) => {
         navbar.current.classList.toggle('is-active')
     }
 
-
+    //HTML for the navbar 
     return (
         <nav className="navbar is-success mb-3" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
@@ -46,6 +44,7 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                                 <Link to="/fridaySchedule" className="navbar-item">Groove Schedule</Link>
                                 <Link to="/myFridaySchedule" className="navbar-item">My Schedule</Link>
                                 <Link to={`/profiles/${localStorage.getItem("user_id")}`} className="navbar-item">Profile</Link> 
+                                {/* if the user is staff they will also have the below nav bar options */}
                                 {staff === "true"
                                 ?
                                 <>
@@ -63,6 +62,7 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
+                            {/*initial login / register page navbar*/}
                             {
                                 token
                                     ? <>
@@ -84,45 +84,4 @@ export const NavBar = ({ token, setToken, setStaff }) => {
             </div>
         </nav>
     )
-    //(
-    //     <Container>
-    //         <Row>
-    //             <Col>
-    //     <ul className="navbar">
-    //     <li className="navbar__item">
-    //             <Link to="/home">Home</Link>
-    //         </li>
-    //         <li className="navbar__item">
-    //             <Link to="/fridaySchedule">Groove Schedule</Link>
-    //         </li>
-    //         <li className="navbar__item">
-    //             <Link to="/myFridaySchedule">My Schedule</Link>
-    //         </li>
-    //         <li className="navbar__item">
-    //             Profile
-    //         </li>
-    //         {
-    //             (localStorage.getItem("groove_token") !== null) ?
-    //                 <li className="nav-item">
-    //                     <button className="nav-link fakeLink"
-    //                         onClick={() => {
-    //                             localStorage.removeItem("groove_token")
-    //                             navigate('/login')
-    //                         }}
-    //                     >Logout</button>
-
-    //                 </li> :
-    //                 <>
-    //                     <li className="nav-item">
-    //                         <Link className="nav-link" to="/login">Login</Link>
-    //                     </li>
-    //                     <li className="nav-item">
-    //                         <Link className="nav-link" to="/register">Register</Link>
-    //                     </li>
-    //                 </>
-    //         }        </ul>
-    //         </Col>
-    //         </Row>
-    //         </Container>
-    // )
 }

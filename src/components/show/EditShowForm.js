@@ -14,8 +14,10 @@ export const EditShow = () => {
         stageId: 0
     })
 
-
+    /*invoking useParams and assigning its return value to showId. This hook returns an object of 
+    key/value pairs of the dynamic params from the current URL that were matched by the <Route path>*/
     const { showId } = useParams()
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
     useEffect(() => {

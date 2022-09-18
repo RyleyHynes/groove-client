@@ -1,3 +1,4 @@
+/*Getter Function for myShows*/
 export const getMyShows = () => {
     return fetch(`http://localhost:8000/myshows`, {
         headers: {
@@ -7,6 +8,7 @@ export const getMyShows = () => {
         .then(res => res.json())
 }
 
+/*POST Function for new creation of myShow */
 export const createMyShow = (show) => {
     return fetch("http://localhost:8000/myshows", {
         method: "POST",
@@ -19,8 +21,7 @@ export const createMyShow = (show) => {
         .then(res => res.json())
 }
 
-
-
+/*Delete Function for MyShow */
 export const deleteMyShow = (id) => {
     return fetch(`http://localhost:8000/myshows/${id}`, {
         method: "DELETE",

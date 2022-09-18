@@ -6,6 +6,7 @@ import { getStages } from "../managers/StageManager"
 
 
 export const ShowForm = () => {
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
     const [stages, setStages] = useState([])
     const [artists, setArtists] = useState([])
