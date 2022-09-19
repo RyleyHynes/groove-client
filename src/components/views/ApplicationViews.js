@@ -13,18 +13,17 @@ import { FridaySchedule } from "../schedule/FridaySchedule"
 import { SaturdaySchedule } from "../schedule/SaturdaySchedule"
 import { ShowForm } from "../show/AddShowForm"
 import { EditShow } from "../show/EditShowForm"
-
 import { Authorized } from "./Authorized"
 
 
-
+//Function which checks authorization and then has all the routes to all the different elements
 export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
 	return <>
 		<Routes>
 			<Route path="/login" element={<Login setToken={setToken} setUserId={setUserId} />} />
 			<Route path="/register" element={<Register setToken={setToken} setUserId={setUserId} />} />
 			<Route element={<Authorized token={token} />}>
-				{/* Add Routes here */}
+				
 				<Route path="/home" element={<Home />} />
 
 				<Route path="/fridaySchedule" element={<FridaySchedule />} />

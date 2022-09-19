@@ -2,16 +2,23 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { checkDeactive, checkDemoted, createDeactive, createDemotion, editUserActive, editUserStatus, getProfiles, updateDeactive, updateDemotion } from "../managers/ProfileManager"
 
+//function that lists all the users profiles
 export const ProfileList = (userId) => {
+    //setting initial state for profiles as an empty array
     const [profiles, setProfiles] = useState([])
+    //setting initial state for showInactive and setting it to false
     const [showInactive, setInactive] = useState(false)
+    //setting initial state for showUserType and setting it to 0
     const [showUserType, setUserType] = useState(0)
+    //setting initial state for status
     const [status, setStatus] = useState()
 
+    //getting the profiles and setting them into state
     useEffect(() => {
         getProfiles().then(data => setProfiles(data))
     },[])
 
+    //function to return the type of user
     const userType = (user) => {
         if(user.is_staff === true) {
             return <>Admin</>
@@ -20,6 +27,7 @@ export const ProfileList = (userId) => {
         }
     }
 
+    //function to return whether the user is active 
     const userActive = (user) => {
         if (user.is_active === true) {
             return <>Deactivate</>
@@ -28,6 +36,7 @@ export const ProfileList = (userId) => {
         }
     }
 
+    
     const userInactive = () => {
         setInactive(!showInactive)
     }

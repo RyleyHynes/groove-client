@@ -5,6 +5,7 @@ import { getSingleProfile, updateProfile } from "../managers/ProfileManager"
 
 
 export const EditProfile = () => {
+    //assigning the profile state to an object of key value pairs that are all set to empty strings
     const [profile, setEditProfile] = useState({
         first_name: "",
         last_name: "",
@@ -19,7 +20,7 @@ export const EditProfile = () => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
-
+    //use effect to getSingle profile data and set that data in the profile state 
     useEffect(() => {
         getSingleProfile(profileId).then(data => {
             data.first_name=data.user.first_name
@@ -30,33 +31,37 @@ export const EditProfile = () => {
             setEditProfile(data)})
     }, [])
 
+    //function that invokes the PUT method updateProfile and navigates back to the users profile
     const handleSubmit = (evt) => {
-        evt.preventDefault()
+        evt.preventDefault() //preventing browser reload/refresh
         updateProfile(profile, profileId).then((data) => {
             navigate(`/profiles/${profile.id}`)
         })
     }
 
+    //function to change copy of the initial profile state and set the new profile value to the state
     const changeProfileState = (event) => {
-        const profileCopy = { ...profile }
+        const profileCopy = { ...profile } //creating a copy of the profile state
         profileCopy[event.target.name] = event.target.value
         setEditProfile(profileCopy)
     }
 
+        //function to turn picture into a sting and then set it into the profile state
         const createImageString = (event) => {
             getBase64(event.target.files[0], (base64ImageString) => {
-                const copy = { ...profile }
+                const copy = { ...profile } //creating a copy of the profile state
                 copy.data = base64ImageString
                 setEditProfile(copy)
             })
         }
-
+        //function to upload a picture from computer
         const getBase64 = (file, callback) => {
             const reader = new FileReader();
             reader.addEventListener('load', () => callback(reader.result));
             reader.readAsDataURL(file);
         }
 
+        //HTML for the edit profile form 
         return <>
             <form className="showForm">
                 <h2 className="showForm__artist_name">Edit Profile</h2>
@@ -68,6 +73,7 @@ export const EditProfile = () => {
                                 type="text"
                                 value={profile.first_name}
                                 name="first_name"
+                                //When the value changes the changeProfileState function is triggered
                                 onChange={changeProfileState} />
                         </div>
                     </div>
@@ -118,12 +124,14 @@ export const EditProfile = () => {
                 <input type="hidden" name="data" value={profile.profile_image} /> 
                 </fieldset>
 
+                
                 <button type="submit"
-                    onClick={handleSubmit}
+                    onClick={handleSubmit} //when save is clicked the handleSubmit function is triggered
                     className="button is-success">
                     Save
                 </button>
 
+                {/* when cancel is clicked it navigates the user back to the users profile */}
                 <button onClick={() => navigate(`/profiles/${profile.id}`)}>Cancel</button>
             </form>
         </>

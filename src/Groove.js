@@ -2,12 +2,16 @@ import { useState } from "react"
 import { ApplicationViews } from "./components/views/ApplicationViews"
 import { NavBar } from "./components/nav/NavBar"
 
-
+//function that authenticates the user
 export const Groove = () => {
+    //setting initial token state to the auth_token found in local storage
     const [token, setTokenState] = useState(localStorage.getItem('auth_token'))
+    //setting initial userId state to the userId found in local storage
     const [userId, setUserIdState] = useState(localStorage.getItem('user_id'))
+    //setting initial staff state to the is_staff property found in local storage
     const [staff, setStaffState] = useState(localStorage.getItem('is_staff'))
 
+    
     const setToken = (newToken) => {
         localStorage.setItem('auth_token', newToken)
         setTokenState(newToken)
