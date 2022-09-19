@@ -2,21 +2,30 @@ import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../managers/AuthManager"
 
-
+/*Login is a function that accepts two props to register new users*/
 export const Login = ({ setToken, setUserId }) => {
+    /*invoking useRef and assigning its return value to several variables
+    useRef( ) allows you to persist values between rerenders.It can be used 
+    to store a mutable value that does not cause a re-render when updated */
     const username = useRef()
     const password = useRef()
+    
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
-    const [isUnsuccessful, setIsUnsuccessful] = useState(false)
 
+    const [isUnsuccessful, setIsUnsuccessful] = useState(false) //setting initial state of isUnsuccessful to false
+
+    //This function handles the login of a user
     const handleLogin = (e) => {
-        e.preventDefault()
+        e.preventDefault() //preventing browser reload/refresh
 
+        //user object to be checked for login
         const user = {
             username: username.current.value,
             password: password.current.value
         }
 
+        //handling validation for login and if it is unsuccessful we change the state to true
         loginUser(user).then(res => {
             if ("valid" in res && res.valid) {
 
@@ -31,8 +40,11 @@ export const Login = ({ setToken, setUserId }) => {
             }
         })
     }
+
+    //HTML that user sees on the login page
     return (
         <section className="columns is-centered">
+            {/* When the form is submitted, the handleLogin function is triggered */}
             <form className="column is-two-thirds" onSubmit={handleLogin}>
                 <h1 className="title">Groove Fest 2022</h1>
                 <p className="subtitle">Please sign in</p>
@@ -40,6 +52,7 @@ export const Login = ({ setToken, setUserId }) => {
                 <div className="field">
                     <label className="label">Username</label>
                     <div className="control">
+                        {/* ref attribute = element to access it directly in the DOM. */}
                         <input className="input" type="text" ref={username} />
                     </div>
                 </div>
@@ -56,9 +69,11 @@ export const Login = ({ setToken, setUserId }) => {
                         <button className="button is-link" type="submit" >Submit</button>
                     </div>
                     <div className="control">
+                        {/* cancels registration and brings you back to login */}
                         <Link to="/register" className="button is-link is-light">Cancel</Link>
                     </div>
                 </div>
+                {/* if the state of isUnsuccessful changes to true we have a pop up saying invalid, otherwise it shows an empty string aka nothing */}
                 {
                     isUnsuccessful ? <p className="help is-danger">Username or password not valid</p> : ''
                 }

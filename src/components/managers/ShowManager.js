@@ -1,12 +1,4 @@
-export const getMyShows = () => {
-    return fetch(`http://localhost:8000/myshows`, {
-        headers: {
-            'Authorization': `Token ${localStorage.getItem('groove_token')}`
-        }
-    })
-        .then(res => res.json())
-}
-
+/*Getter function for a single show*/
 export const getSingleShow = (showId) => {
     return fetch(`http://localhost:8000/shows/${showId}`, {
         headers: {
@@ -16,21 +8,7 @@ export const getSingleShow = (showId) => {
         .then(response => response.json())
 }
 
-
-export const createShow = (show) => {
-    return fetch("http://localhost:8000/myshows", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Token ${localStorage.getItem('groove_token')}`
-        },
-        body: JSON.stringify(show)
-    })
-        .then(res => res.json())
-}
-
-
-
+/*POST function for creating a new show*/
 export const createNewShow = (show) => {
     return fetch("http://localhost:8000/shows", {
         method: "POST",
@@ -43,6 +21,7 @@ export const createNewShow = (show) => {
         .then(res => res.json())
 }
 
+/*PUT function to edit an existing show*/
 export const updateShow = (showId, show) => {
     return fetch(`http://localhost:8000/shows/${showId}`, {
         method: "PUT",
@@ -54,6 +33,7 @@ export const updateShow = (showId, show) => {
     })
 }
 
+/*DELETE function for an existing show*/
 export const deleteShow = (id) => {
     return fetch(`http://localhost:8000/shows/${id}`, {
         method: "DELETE",
