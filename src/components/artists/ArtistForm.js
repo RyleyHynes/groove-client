@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { createNewArtist } from "../managers/ArtistManager"
 
 
-//function to display the form for a new artist submission
+//function to display the form for a new artist submission MVP
 export const ArtistForm = () => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
