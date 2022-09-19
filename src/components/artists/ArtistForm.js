@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createNewArtist } from "../managers/ArtistManager"
-import { getStages } from "../managers/StageManager"
+
 
 //function to display the form for a new artist submission
 export const ArtistForm = () => {

@@ -16,7 +16,7 @@ import { EditShow } from "../show/EditShowForm"
 import { Authorized } from "./Authorized"
 
 
-//Function which checks authorization and then has all the routes to all the different elements
+//Function which checks authorization and then houses the routes to all the different elements
 export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
 	return <>
 		<Routes>

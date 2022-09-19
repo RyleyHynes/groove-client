@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { deleteArtist, getArtists } from "../managers/ArtistManager"
 
 //function to list off the artists that has a prop of seStaff
-export const ArtistList = ({ setStaff }) => {
+export const ArtistList = () => {
     //setting initial state of artist to an empty array
     const [artists, setArtists] = useState([])
     //setting initial state of staff
@@ -14,16 +14,12 @@ export const ArtistList = ({ setStaff }) => {
     //getting the is_staff property out of local storage for the current user and setting it to the staff state
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
-    }, [setStaff])
+    }, [])
 
     //getting the artists from the ArtistsManager.js file and setting that data into the artists state
     useEffect(() => {
         getArtists().then(data => setArtists(data))
     }, [])
-
-    const refreshPage = () => {
-        window.location.reload(false);
-    }
 
 
     //Displaying the HTML for the artists that will be listed out
@@ -62,8 +58,7 @@ export const ArtistList = ({ setStaff }) => {
                                             <>
                                                 <button className="button is-warning" onClick={() => navigate(`/artists/${artist.id}/edit`)}>edit</button>
                                                 <button className="deleteButton" onClick={() => {
-                                                    refreshPage()
-                                                    deleteArtist(artist.id).then(getArtists().then(setArtists))
+                                                    deleteArtist(artist.id).then(() => {getArtists().then(setArtists)})
                                                 }}>Delete</button>
                                             </>
                                             :
