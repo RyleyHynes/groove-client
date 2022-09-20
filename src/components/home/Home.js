@@ -1,17 +1,11 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
+import "./Home.css"
 
 export const Home = () => {
     return <>
-    <Container>
-        <Row>
-            
-    <div className="home">
+    <div>
         {/* home page title */}
-        <Col>
-        <h2 className="subTitle">Your 2022 Lineup</h2>
+        
+        <h2 className="lineupTitle">Your 2022 Groove Lineup</h2>
         <>
         <section>
             <fieldset>
@@ -19,9 +13,9 @@ export const Home = () => {
                 {
                     <div>
                         <img 
-                        className="meadows"
+                        className="grooveLineup"
                         src="/images/GrooveLineup.png"
-                        alt="meadows"
+                        alt="grooveLineup"
                     />
                     </div>
                 }
@@ -29,9 +23,6 @@ export const Home = () => {
             
         </section>
         </>
-        </Col>
     </div> 
-    </Row>
-    </Container>
     </>
 }

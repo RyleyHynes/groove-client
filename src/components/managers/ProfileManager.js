@@ -67,13 +67,11 @@ export const editUserStatus = (user, status) => {
 
 /*PUT function to update demotion status*/
 export const checkDemoted = (user) => {
-    return fetch(`http://localhost:8000/profiles/${user.id}/user_status`, {
-        method: 'PUT',
+    return fetch(`http://localhost:8000/demotes?demotedUser=${user.id}`, {
         headers: {
-            'Content-Type': 'application/json',
             'Authorization': `Token ${localStorage.getItem('groove_token')}`
         }
-    })
+    }).then(res => res.json())
 }
 
 

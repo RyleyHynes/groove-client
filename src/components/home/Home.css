@@ -1,0 +1,15 @@
+
+.lineupTitle {
+    color: white !important;
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.grooveLineup {
+    border-radius: 10% !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    padding-top: 2rem;
+}

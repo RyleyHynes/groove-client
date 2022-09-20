@@ -28,7 +28,7 @@ export const NavBar = ({ token, setToken, setStaff }) => {
 
     //HTML for the navbar 
     return (
-        <Nav variant="pills" defaultActiveKey="/home">
+        <Nav variant="pills" defaultActiveKey={window.location.pathname}>
             {
                 token
                     ? <>
@@ -45,7 +45,7 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                         </Nav.Item>
 
                         <Nav.Item>
-                            <Nav.Link eventKey="link-1" href={`/profiles/${localStorage.getItem("user_id")}`} className="navbar-item">Profile</Nav.Link>
+                            <Nav.Link href={`/profiles/${localStorage.getItem("user_id")}`} className="navbar-item">Profile</Nav.Link>
                         </Nav.Item>
                         {/* if the user is staff they will also have the below nav bar options */}
                         {staff === "true"

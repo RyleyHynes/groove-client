@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { deleteArtist, getArtists } from "../managers/ArtistManager"
+// import "./List.css"
 
 //function to list off the artists that has a prop of seStaff
 export const ArtistList = () => {

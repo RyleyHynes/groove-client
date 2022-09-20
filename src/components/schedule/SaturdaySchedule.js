@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { createMyShow, getMyShows } from "../managers/MyShowManager"
 import { getSaturdaySchedule } from "../managers/ScheduleManager"
 import { deleteShow } from "../managers/ShowManager"
-
+// import "./List.css"
 
 
 export const SaturdaySchedule = ({ setStaff }) => {
@@ -45,48 +45,52 @@ export const SaturdaySchedule = ({ setStaff }) => {
 
     return (
         <>
+            <h2 className="showForm_title">Saturday Groove</h2>
             {/* if the user is staff they will have the option to add a new show*/}
-            {
-                (staff === "true")
-                    ?
-                    <>
-                        <button onClick={() => navigate("/addShowForm")}>Add Show</button>
-                    </>
-                    :
-                    <>
+            <div className="topButtons">
+                {
+                    (staff === "true")
+                        ?
+                        <>
+                            <button className="dayButtons" onClick={() => navigate("/addShowForm")}>Add Show</button>
+                        </>
+                        :
+                        <>
 
-                    </>
-            }
-
+                        </>
+                }
             {/* buttons to toggle between friday and saturdays schedule */}
-            <button onClick={() => navigate("/fridaySchedule")}>Friday</button>
-            <button onClick={() => navigate("/saturdaySchedule")}>Saturday</button>
-
-            <h2>Saturday Groove</h2>
+            <button className="dayButtons" onClick={() => navigate("/fridaySchedule")}>Friday</button>
+            <button className="dayButtons" onClick={() => navigate("/saturdaySchedule")}>Saturday</button>
+            </div>
             <article>
-                <ul>
+                <ul className="showContainer">
                     {/* mapping through each show and displaying its information */}
                     {shows.map((show) => {
                         return (
-                            <div key={`show-${show.id}`}>
-                                <section key={`show-${show.id}`}>
-                                    <div>
-                                        <img src={show?.artist.artist_image} alt='show'></img>
+                            <div className="individualShow" key={`show-${show.id}`}>
+                                <section className="showList" key={`show-${show.id}`}>
+                                    <div className="imageContainer">
+                                        <img className="showPicture" src={show?.artist.artist_image} alt='show'></img>
                                     </div>
-                                    <div><b>Artist:</b>{show?.artist.artist_name}</div>
-                                    <div><b>Genre:</b>{show?.artist.genre}</div>
-                                    <div><b>Description:</b>{show?.artist.artist_description}</div>
-                                    <div><b>Stage:</b>{show?.stage.stage_name}</div>
-                                    <div><b>start:</b>{show.readable_start_time}-{show.readable_end_time}</div>
-                                    <button id={show.id} onClick={handleAddShow}>Add to MyLineup</button>
-                                    
+                                    <div className="textContainer">
+                                        <div className="showInfo"><b>Artist:</b>{show?.artist.artist_name}</div>
+                                        <div className="showInfo"><b>Genre:</b>{show?.artist.genre}</div>
+                                        <div className="showInfo"><b>Description:</b>{show?.artist.artist_description}</div>
+                                        <div className="showInfo"><b>Stage:</b>{show?.stage.stage_name}</div>
+                                        <div className="showInfo"><b>start:</b>{show.readable_start_time}-{show.readable_end_time}</div>
+                                    </div>
+                                </section>
+                                <section className="bottomButtons">
+                                    <button className="alterButton" id={show.id} onClick={handleAddShow}>Add to MyLineup</button>
+
                                     {/* if the user is staff they will have the option to edit or delete a show */}
                                     {
                                         (staff === "true")
                                             ?
                                             <>
-                                                <button className="button is-warning" onClick={() => navigate(`/shows/${show.id}/edit`)}>edit</button>
-                                                <button className="deleteButton" onClick={(evt) => {
+                                                <button className="alterButton" onClick={() => navigate(`/shows/${show.id}/edit`)}>edit</button>
+                                                <button className="alterButton" onClick={(evt) => {
                                                     evt.preventDefault()
                                                     deleteShow(show.id).then(getCurrentSaturdaySchedule)
                                                 }}>Delete</button>

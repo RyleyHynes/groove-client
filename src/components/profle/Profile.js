@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getProfileShows, getSingleProfile } from "../managers/ProfileManager"
 import { FaUserCircle } from 'react-icons/fa';
+import Image from 'react-bootstrap/Image'
+import "./Profile.css"
 
 
 export const ProfileDetails = (userId) => {
@@ -34,6 +36,7 @@ export const ProfileDetails = (userId) => {
     return (
         <article className="profiles">
             <section key={`profile--${profile.id}`} className="profile">
+                <div>
                 <header>
                     {
                         profile.profile_image === ""
@@ -42,7 +45,7 @@ export const ProfileDetails = (userId) => {
                                 <FaUserCircle size={'3rem'} />
                             </span>
                         </figure>
-                        : <img className="image" src={`http://localhost:8000${profile.profile_image}`} alt="usersProfileImage"/>
+                        : <Image className="image" roundedCircle src={`http://localhost:8000${profile.profile_image}`} alt="usersProfileImage"/>
                     }
                 </header>
                 <div className="profile__fullName">Name: {profile.user?.first_name} {profile.user?.last_name}</div>
@@ -65,6 +68,7 @@ export const ProfileDetails = (userId) => {
                 </footer>
                 {/* button to navigate to the edit profile form */}
                 <button className="button is-warning" onClick={() => navigate(`/profiles/${profile.user?.id}/edit`)}>Edit Info</button>
+                </div>
             </section>
         </article>
     )
