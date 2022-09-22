@@ -8,6 +8,16 @@ export const getMyShows = () => {
         .then(res => res.json())
 }
 
+export const getSearchMyShows = (search) => {
+    return fetch(`http://localhost:8000/myshows?user=${localStorage.getItem('groove_user')}&search=${search}`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('groove_token')}`
+        }
+    })
+        .then(res => res.json())
+}
+
 /*POST Function for new creation of myShow */
 export const createMyShow = (show) => {
     return fetch("http://localhost:8000/myshows", {

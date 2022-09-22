@@ -8,6 +8,18 @@ export const getSingleShow = (showId) => {
         .then(response => response.json())
 }
 
+export const getSearchShows = (search) => {
+    return fetch(`http://localhost:8000/shows?search=${search}`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('groove_token')}`
+        }
+    })
+        .then(res => res.json())
+}
+
+
+
 /*POST function for creating a new show*/
 export const createNewShow = (show) => {
     return fetch("http://localhost:8000/shows", {

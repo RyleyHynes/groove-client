@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createMyShow } from "../managers/MyShowManager"
 import { getFridaySchedule } from "../managers/ScheduleManager"
-import { deleteShow } from "../managers/ShowManager"
+import { deleteShow, getSearchShows } from "../managers/ShowManager"
 import "./List.css"
 
 export const FridaySchedule = ({ setStaff }) => {
@@ -12,6 +12,8 @@ export const FridaySchedule = ({ setStaff }) => {
     const [addShow, setAddShow] = useState(false)
     //setting up initial state for staff
     const [staff, setStaffState] = useState()
+    const [searchTerms, setSearchTerms] = useState("")
+    const [filteredFridayShow, setFilteredFridayShow] = useState([])
 
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
@@ -31,6 +33,17 @@ export const FridaySchedule = ({ setStaff }) => {
         getCurrentFridaySchedule()
     }, [])
 
+    useEffect(
+        () => {
+            if (searchTerms !== "") {
+                getSearchShows(searchTerms).then(data => setFilteredFridayShow(data))
+            }
+            else {
+                setFilteredFridayShow(shows)
+            }
+        },
+        [searchTerms, shows]
+    )
     //function to add show to users custom lineup
     const handleAddShow = (evt) => {
         evt.preventDefault() //preventing browser reload/refresh
@@ -62,6 +75,17 @@ export const FridaySchedule = ({ setStaff }) => {
                 {/* buttons to toggle between friday and saturdays schedule */}
                 <button className="dayButtons" onClick={() => navigate("/fridaySchedule")}>Friday</button>
                 <button className="dayButtons" onClick={() => navigate("/saturdaySchedule")}>Saturday</button>
+                <input
+                    className="input search mx-4"
+                    type="text"
+                    placeholder="Search Items"
+                    onChange={
+                        (changeEvent) => {
+                            let search = changeEvent.target.value
+                            setSearchTerms(search)
+                        }
+                    }
+                />
             </div>
             <article>
                 <ul className="showContainer">

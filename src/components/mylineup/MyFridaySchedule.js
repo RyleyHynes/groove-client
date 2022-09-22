@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { deleteMyShow, getMyShows } from "../managers/MyShowManager"
+import { deleteMyShow, getMyShows, getSearchMyShows } from "../managers/MyShowManager"
 // import "./List.css"
 
 export const MyFridaySchedule = () => {
@@ -9,6 +9,10 @@ export const MyFridaySchedule = () => {
     const [myFridayShows, setMyFridayShows] = useState([])
     //setting the initial day state to false for toggle purposes
     const [day, setDay] = useState(false)
+    const [searchTerms, setSearchTerms] = useState("")
+    const [filteredFridayShow, setFilteredFridayShow] = useState([])
+    const [filteredSaturdayShow, setFilteredSaturdayShow] = useState([])
+
 
     //sorts the shows based on their date
     const sortShows = (shows) => {
@@ -21,8 +25,8 @@ export const MyFridaySchedule = () => {
                 saturdayShows.push(show)
             }
         })
-        let sortedFridayShows=fridayShows.sort((a,b)=> {return a.start_time.localeCompare(b.start_time)})
-        let sortedSaturdayShows=saturdayShows.sort((a,b) => {return a.start_time.localeCompare(b.start_time)})
+        let sortedFridayShows = fridayShows.sort((a, b) => { return a.start_time.localeCompare(b.start_time) })
+        let sortedSaturdayShows = saturdayShows.sort((a, b) => { return a.start_time.localeCompare(b.start_time) })
         setMySaturdayShows(sortedSaturdayShows) //setting shows that are on saturday to mySaturdayShows state
         setMyFridayShows(sortedFridayShows) //setting shows that are on friday to myFridayShows state
     }
@@ -41,6 +45,30 @@ export const MyFridaySchedule = () => {
         getShows()
     }, [])
 
+    useEffect(
+        () => {
+            if (searchTerms !== "") {
+                getSearchMyShows(searchTerms).then(data => setFilteredFridayShow(data))
+            }
+            else {
+                setFilteredFridayShow(myFridayShows)
+            }
+        },
+        [searchTerms, myFridayShows]
+    )
+
+    useEffect(
+        () => {
+            if (searchTerms !== "") {
+                getSearchMyShows(searchTerms).then(data => setFilteredSaturdayShow(data))
+            }
+            else {
+                setFilteredSaturdayShow(mySaturdayShows)
+            }
+        },
+        [searchTerms, mySaturdayShows]
+    )
+
     //HTML for the users Schedule
     return (
         <>
@@ -51,6 +79,17 @@ export const MyFridaySchedule = () => {
                             <button className="dayButtons" onClick={() => setDay(false)}>Friday</button>
                             <button className="dayButtons" onClick={() => setDay(true)}>Saturday</button>
                         </div>
+                        <input
+                            className="input search mx-4"
+                            type="text"
+                            placeholder="Search Items"
+                            onChange={
+                                (changeEvent) => {
+                                    let search = changeEvent.target.value
+                                    setSearchTerms(search)
+                                }
+                            }
+                        />
                         <ul className="showContainer">
                             {/* mapping though the users saturday shows and listing off each shows image, 
                         artist name, genre, description, stage, and show time */}
@@ -85,10 +124,21 @@ export const MyFridaySchedule = () => {
                     <>
                         <h2 className="showForm_title">Your Friday Schedule</h2>
                         <article>
-                        <div className="topButtons">
-                        <button className="dayButtons" onClick={() => setDay(false)}>Friday</button>
-                        <button className="dayButtons" onClick={() => setDay(true)}>Saturday</button>
-                        </div>
+                            <div className="topButtons">
+                                <button className="dayButtons" onClick={() => setDay(false)}>Friday</button>
+                                <button className="dayButtons" onClick={() => setDay(true)}>Saturday</button>
+                            </div>
+                            <input
+                                className="input search mx-4"
+                                type="text"
+                                placeholder="Search Items"
+                                onChange={
+                                    (changeEvent) => {
+                                        let search = changeEvent.target.value
+                                        setSearchTerms(search)
+                                    }
+                                }
+                            />
                             <ul className="showContainer">
                                 {/* mapping though the users friday shows and listing off each shows image, 
                         artist name, genre, description, stage, and show time */}
@@ -108,15 +158,15 @@ export const MyFridaySchedule = () => {
                                                         <div className="showInfo"><b>Stage:</b> {show?.stage?.stage_name}</div>
                                                         <div className="showInfo"><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
                                                     </div>
-                                                    </section>
-                                                    <section className="bottomButtons">
-                                                        {/* user has the option to delete this show from their lineup */}
-                                                        <button className="alterButton" onClick={(evt) => {
-                                                            evt.preventDefault()
-                                                            deleteMyShow(show.id).then(getShows)
-                                                        }}>Delete</button>
-                                                    </section>
-                                                
+                                                </section>
+                                                <section className="bottomButtons">
+                                                    {/* user has the option to delete this show from their lineup */}
+                                                    <button className="alterButton" onClick={(evt) => {
+                                                        evt.preventDefault()
+                                                        deleteMyShow(show.id).then(getShows)
+                                                    }}>Delete</button>
+                                                </section>
+
                                             </div>
                                         )
                                     })}

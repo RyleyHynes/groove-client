@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createMyShow, getMyShows } from "../managers/MyShowManager"
 import { getSaturdaySchedule } from "../managers/ScheduleManager"
-import { deleteShow } from "../managers/ShowManager"
+import { deleteShow, getSearchShows } from "../managers/ShowManager"
 // import "./List.css"
 
 
@@ -13,6 +13,8 @@ export const SaturdaySchedule = ({ setStaff }) => {
     const [addShow, setAddShow] = useState(false)
     //setting up initial state for staff
     const [staff, setStaffState] = useState()
+    const [searchTerms, setSearchTerms] = useState("")
+    const [filteredSaturdayShow, setFilteredSaturdayShow] = useState([])
 
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
@@ -31,6 +33,18 @@ export const SaturdaySchedule = ({ setStaff }) => {
     useEffect(() => {
         getCurrentSaturdaySchedule()
     }, [])
+    
+    useEffect(
+        () => {
+            if (searchTerms !== "") {
+                getSearchShows(searchTerms).then(data => setFilteredSaturdayShow(data))
+            }
+            else {
+                setFilteredSaturdayShow(shows)
+            }
+        },
+        [searchTerms, shows]
+    )
 
     //function to add a show to their custom schedule
     const handleAddShow = (evt) => {
@@ -62,6 +76,17 @@ export const SaturdaySchedule = ({ setStaff }) => {
             {/* buttons to toggle between friday and saturdays schedule */}
             <button className="dayButtons" onClick={() => navigate("/fridaySchedule")}>Friday</button>
             <button className="dayButtons" onClick={() => navigate("/saturdaySchedule")}>Saturday</button>
+            <input
+                    className="input search mx-4"
+                    type="text"
+                    placeholder="Search Items"
+                    onChange={
+                        (changeEvent) => {
+                            let search = changeEvent.target.value
+                            setSearchTerms(search)
+                        }
+                    }
+                />
             </div>
             <article>
                 <ul className="showContainer">
