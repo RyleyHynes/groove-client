@@ -14,8 +14,8 @@ export const ProfileDetails = (userId) => {
 
     /*invoking useParams and assigning its return value to profileId. This hook returns an object of 
     key/value pairs of the dynamic params from the current URL that were matched by the <Route path>*/
-    const {profileId} = useParams()
-    
+    const { profileId } = useParams()
+
     /*Get current user from local storage*/
     const currentUserId = parseInt(localStorage.getItem('user_id'))
 
@@ -26,48 +26,51 @@ export const ProfileDetails = (userId) => {
     }
 
     //use effect to invoke the getProfileWithShows while watching the profileId and re-rendering when it changes
-    useEffect(()=> {
+    useEffect(() => {
         getProfileWithShows()
     }, [profileId])
 
-    
+
 
     //HTML to display the current users profile
     return (
         <article className="profiles">
             <section key={`profile--${profile.id}`} className="profile">
                 <div>
-                <header>
-                    {
-                        profile.profile_image === ""
-                        ? <figure className="media-left">
-                            <span className="icon is-large">
-                                <FaUserCircle size={'3rem'} />
-                            </span>
-                        </figure>
-                        : <Image className="image" roundedCircle src={`http://localhost:8000${profile.profile_image}`} alt="usersProfileImage"/>
-                    }
-                </header>
-                <div className="profile__fullName">Name: {profile.user?.first_name} {profile.user?.last_name}</div>
-                <div className="profile__username">UserName: {profile.user?.username}</div>
-                <div className="profile__email">Email: {profile.user?.email}</div>
-                <div className="profile__creationDate">Date Joined: {profile.user?.date_joined}</div>
-                {/* displays the number of shows they have added to their custom schedule */}
-                { currentUserId === profile.user?.id
-                    ?<div>Show Count: {shows.length}</div>
-                    :<></>
-                }
-                
-                <footer>
-                    {/* displays type of user */}
-                    {
-                        profile.user?.is_staff === true
-                            ? <div className="profile__usertype">Staff</div>
-                            : <div className="profile__usertype">Author</div>
-                    }
-                </footer>
-                {/* button to navigate to the edit profile form */}
-                <button className="button is-warning" onClick={() => navigate(`/profiles/${profile.user?.id}/edit`)}>Edit Info</button>
+                    <header>
+                        {
+                            profile.profile_image === ""
+                                ? <figure>
+                                    <span>
+                                        <FaUserCircle size={'3rem'} />
+                                    </span>
+                                </figure>
+                                : <Image className="image" roundedCircle src={`http://localhost:8000${profile.profile_image}`} alt="usersProfileImage" />
+                        }
+                    </header>
+                    <div className="profile__info">
+                        <div className="profile__info"><b>Name</b>: {profile.user?.first_name} {profile.user?.last_name}</div>
+                        <div className="profile__info"><b>UserName</b>: {profile.user?.username}</div>
+                        <div className="profile__info"><b>Email</b>: {profile.user?.email}</div>
+                        <div className="profile__info"><b>Date Joined</b>: {profile.user?.date_joined}</div>
+                        {/* displays the number of shows they have added to their custom schedule */}
+                        {currentUserId === profile.user?.id
+                            ? <div><b>Show Count</b>: {shows.length}</div>
+                            : <></>
+                        }
+
+                        <footer>
+                            {/* displays type of user */}
+                            {
+                                profile.user?.is_staff === true
+                                    ? <div className="profile__usertype"><b>Staff</b></div>
+                                    : <div className="profile__usertype"><b>Author</b></div>
+                            }
+                        </footer>
+                    
+                    {/* button to navigate to the edit profile form */}
+                    <button className="button is-warning" onClick={() => navigate(`/profiles/${profile.user?.id}/edit`)}>Edit Info</button>
+                    </div>
                 </div>
             </section>
         </article>

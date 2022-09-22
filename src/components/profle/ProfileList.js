@@ -47,41 +47,41 @@ export const ProfileList = (userId) => {
     }
 
     const userDemoteProcess = (profile, status) => {
-            checkDemoted(profile).then((data) => {
-                    console.log(data)
-                if ((data.length !== 0) && (data[0]?.approveUser.id != localStorage.getItem('user_id'))) {
-                    data[0].secondApproveUser = localStorage.getItem('user_id')
-                    updateDemotion(data[0]).then(() => editUserStatus(profile, status).then(() => {
-                        setUserType(0)
-                        getProfiles().then(data => setProfiles(data))
-                    }))
-                } else {
-                    const demote = {
-                        demotedUser: profile.id,
-                        approveUser: localStorage.getItem('user_id')
-                    }
-                    createDemotion(demote).then(() => window.alert(`one more admin needed to confirm deactivation`))
+        checkDemoted(profile).then((data) => {
+            console.log(data)
+            if ((data.length !== 0) && (data[0]?.approveUser.id != localStorage.getItem('user_id'))) {
+                data[0].secondApproveUser = localStorage.getItem('user_id')
+                updateDemotion(data[0]).then(() => editUserStatus(profile, status).then(() => {
+                    setUserType(0)
+                    getProfiles().then(data => setProfiles(data))
+                }))
+            } else {
+                const demote = {
+                    demotedUser: profile.id,
+                    approveUser: localStorage.getItem('user_id')
                 }
-            })
+                createDemotion(demote).then(() => window.alert(`one more admin needed to confirm deactivation`))
+            }
+        })
     }
 
     const userDeactiveProcess = (profile) => {
-            checkDeactive(profile).then((data) => {
-                if ((data.length !== 0) && (data[0]?.approveUser != localStorage.getItem('user_id'))) {
-                    data[0].secondApproveUser = localStorage.getItem('user_id')
-                    updateDeactive(data[0]).then(() =>
-                        editUserActive(profile).then(() => {
-                            setInactive(false)
-                            getProfiles().then(data => setProfiles(data))
-                        }))
-                } else {
-                    const deactive = {
-                        deactivatedUser: profile.id,
-                        approveUser: localStorage.getItem('user_id')
-                    }
-                    createDeactive(deactive).then(() => window.alert(`one more admin needed to confirm deactivation`))
+        checkDeactive(profile).then((data) => {
+            if ((data.length !== 0) && (data[0]?.approveUser != localStorage.getItem('user_id'))) {
+                data[0].secondApproveUser = localStorage.getItem('user_id')
+                updateDeactive(data[0]).then(() =>
+                    editUserActive(profile).then(() => {
+                        setInactive(false)
+                        getProfiles().then(data => setProfiles(data))
+                    }))
+            } else {
+                const deactive = {
+                    deactivatedUser: profile.id,
+                    approveUser: localStorage.getItem('user_id')
                 }
-            })
+                createDeactive(deactive).then(() => window.alert(`one more admin needed to confirm deactivation`))
+            }
+        })
     }
 
     return <>
@@ -99,7 +99,7 @@ export const ProfileList = (userId) => {
                                 }}>Reactivate</button>
                             </section>
                         </div>
-            )
+                    )
                 } else {
                     return ""
                 }
@@ -109,51 +109,54 @@ export const ProfileList = (userId) => {
         }
         <article className="profiles">
             <br />
-            <h2><b>Active Users</b></h2>
+            <h2 className="showForm_title"><b>Active Users</b></h2>
             {
+                
                 profiles.sort(((a, b) => { return a.user.username.localeCompare(b.user.username) })).map(profile => {
                     if (profile.user?.is_active) {
-                        return <section key={`profile--${profile.id}`} className="profile">
-                            <div className="profile__fullName">Full Name: {profile.user.first_name} {profile.user.last_name}</div>
-                            <Link to={`/profiles/${profile.id}`} className="button is-Link is-light">Username: {profile.user.username}</Link>
-                            <div className="profile__userType">User Type: {userType(profile.user)}</div>
-                            {showUserType === 0 || showUserType != profile.id
-                                ? localStorage.getItem('user_id') != profile.id
-                                    ? <button id={profile.id} onClick={(evt) => userTypeForm(evt)}>Edit User Type</button>
+                        return <section className="individualProfiles" key={`profile--${profile.id}`}>
+                            <div className="profileList">
+                                <div className="profileAttribute"><b>Full Name</b>: {profile.user.first_name} {profile.user.last_name}</div>
+                                <Link className="profileAttribute" to={`/profiles/${profile.id}`}><b>Username</b>: {profile.user.username}</Link>
+                                <div className="profileAttribute"><b>User Type</b>: {userType(profile.user)}</div>
+                                
+                                {showUserType === 0 || showUserType != profile.id
+                                    ? localStorage.getItem('user_id') != profile.id
+                                        ? <button className="profileAttribute" id={profile.id} onClick={(evt) => userTypeForm(evt)}><b>Edit User Type</b></button>
+                                        : <></>
                                     : <></>
-                                : <></>
-                            }
-                            {showUserType === profile.id
-                                ? <>
-                                    <br />
-                                    <input type="radio" id="Author" name="status" value="Author"
-                                        onChange={
-                                            () => {
-                                                setStatus(false)
-                                            }
-                                        } />
-                                    <label htmlFor="Author">Author</label>
-                                    <input type="radio" id="Admin" name="status" value="Admin"
-                                        onChange={
-                                            () => {
-                                                setStatus(true)
-                                            }
-                                        } />
-                                    <label htmlFor="Admin">Admin</label>
-                                    <button onClick={() => userDemoteProcess(profile, status)}>Save</button>
-                                    <button onClick={() => setUserType(0)}>Cancel</button>
-                                    <br />
-                                </>
-                                : <></>
-                            }
-                            {localStorage.getItem('user_id') !== profile.id
-                                ? <button onClick={(evt) => {
-                                    evt.preventDefault()
-                                    userDeactiveProcess(profile)
-                                }}>{userActive(profile.user)}</button>
-                                : <></>
-                            }
-                            <br /><br />
+                                }
+                                {showUserType === profile.id
+                                    ? <>
+                                        <br />
+                                        <input className="profileAttribute" type="radio" id="Author" name="status" value="Author"
+                                            onChange={
+                                                () => {
+                                                    setStatus(false)
+                                                }
+                                            } />
+                                        <label className="profileAttribute" htmlFor="Author"><b>Author</b></label>
+                                        <input className="profileAttribute" type="radio" id="Admin" name="status" value="Admin"
+                                            onChange={
+                                                () => {
+                                                    setStatus(true)
+                                                }
+                                            } />
+                                        <label className="profileAttribute" htmlFor="Admin"><b>Admin</b></label>
+                                        <button className="profileAttribute" onClick={() => userDemoteProcess(profile, status)}>Save</button>
+                                        <button className="profileAttribute" onClick={() => setUserType(0)}>Cancel</button>
+                                        <br />
+                                    </>
+                                    : <></>
+                                }
+                                {localStorage.getItem('user_id') !== profile.id
+                                    ? <button className="profileAttribute" onClick={(evt) => {
+                                        evt.preventDefault()
+                                        userDeactiveProcess(profile)
+                                    }}>{userActive(profile.user)}</button>
+                                    : <></>
+                                }
+                            </div>
                         </section>
                     }
                 })

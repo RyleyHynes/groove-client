@@ -28,38 +28,38 @@ export const NavBar = ({ token, setToken, setStaff }) => {
 
     //HTML for the navbar 
     return (
-        <Nav variant="pills" defaultActiveKey={window.location.pathname}>
+        <Nav fill variant="pills" defaultActiveKey={window.location.pathname}>
             {
                 token
                     ? <>
                         <Nav.Item>
-                            <Nav.Link href="/home">Home</Nav.Link>
+                            <Nav.Link href="/home"><b>Home</b></Nav.Link>
                         </Nav.Item>
 
                         <Nav.Item>
-                            <Nav.Link href="/fridaySchedule">Groove Schedule</Nav.Link>
+                            <Nav.Link href="/fridaySchedule"><b>Groove Schedule</b></Nav.Link>
                         </Nav.Item>
 
                         <Nav.Item>
-                            <Nav.Link href="/myFridaySchedule">My Schedule</Nav.Link>
+                            <Nav.Link href="/myFridaySchedule"><b>My Schedule</b></Nav.Link>
                         </Nav.Item>
 
-                        <Nav.Item>
-                            <Nav.Link href={`/profiles/${localStorage.getItem("user_id")}`} className="navbar-item">Profile</Nav.Link>
-                        </Nav.Item>
                         {/* if the user is staff they will also have the below nav bar options */}
                         {staff === "true"
                             ?
                             <>
                                 <Nav.Item>
-                                    <Nav.Link href="/profiles" className="navbar-item">User Profiles</Nav.Link>
+                                    <Nav.Link href="/artistList" className="navbar-item"><b>Artist List</b></Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link href="/artistList" className="navbar-item">Artist List</Nav.Link>
+                                    <Nav.Link href="/profiles" className="navbar-item"><b>User Profiles</b></Nav.Link>
                                 </Nav.Item>
                             </>
                             : <></>
                         }
+                        <Nav.Item>
+                            <Nav.Link href={`/profiles/${localStorage.getItem("user_id")}`} className="navbar-item"><b>Profile</b></Nav.Link>
+                        </Nav.Item>
                     </>
                     :
                     ""
@@ -69,20 +69,20 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                         {
                             token
                                 ? <>
-                                    <Button  onClick={() => {
+                                    <button  onClick={() => {
                                         setToken('')
                                         setStaff('')
                                         navigate('/login')
-                                    }}>Logout</Button>
+                                    }}>Logout</button>
                                 </>
                                 :
                                 <>
                                 <Nav.Item>
-                                    <Nav.Link href="/register">Register</Nav.Link>
+                                    <Nav.Link href="/register"><b>Register</b></Nav.Link>
                                 </Nav.Item>
 
                                 <Nav.Item>
-                                    <Nav.Link href="/login">Login</Nav.Link>
+                                    <Nav.Link href="/login"><b>Login</b></Nav.Link>
                                 </Nav.Item>
                                 </>
                         }

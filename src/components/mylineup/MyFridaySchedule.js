@@ -21,8 +21,10 @@ export const MyFridaySchedule = () => {
                 saturdayShows.push(show)
             }
         })
-        setMySaturdayShows(saturdayShows) //setting shows that are on saturday to mySaturdayShows state
-        setMyFridayShows(fridayShows) //setting shows that are on friday to myFridayShows state
+        let sortedFridayShows=fridayShows.sort((a,b)=> {return a.start_time.localeCompare(b.start_time)})
+        let sortedSaturdayShows=saturdayShows.sort((a,b) => {return a.start_time.localeCompare(b.start_time)})
+        setMySaturdayShows(sortedSaturdayShows) //setting shows that are on saturday to mySaturdayShows state
+        setMyFridayShows(sortedFridayShows) //setting shows that are on friday to myFridayShows state
     }
 
     //function which gets users shows and sorts them by day
@@ -42,72 +44,85 @@ export const MyFridaySchedule = () => {
     //HTML for the users Schedule
     return (
         <>
-            <button className="dayButtons" onClick={() => setDay(false)}>Friday</button>
-            <button className="dayButtons" onClick={() => setDay(true)}>Saturday</button>
-            
-                {
-                    day ? <><h2 className="showForm_title">Your Saturday Schedule</h2>
+            {
+                day ? <><h2 className="showForm_title">Your Saturday Schedule</h2>
+                    <article>
+                        <div className="topButtons">
+                            <button className="dayButtons" onClick={() => setDay(false)}>Friday</button>
+                            <button className="dayButtons" onClick={() => setDay(true)}>Saturday</button>
+                        </div>
+                        <ul className="showContainer">
+                            {/* mapping though the users saturday shows and listing off each shows image, 
+                        artist name, genre, description, stage, and show time */}
+                            {
+                                mySaturdayShows?.map((show) => {
+                                    return (
+                                        <div className="individualShow" key={`saturdayShow-${show.id}`}>
+                                            <section className="showList" key={`show-${show.id}`}>
+                                                <div className="imageContainer">
+                                                    <img className="showPicture" src={show?.artist.artist_image} alt='show'></img>
+                                                </div>
+                                                <div className="textContainer">
+                                                    <div className="showInfo"><b>Artist:</b> {show?.artist.artist_name}</div>
+                                                    <div className="showInfo"><b>Genre:</b> {show?.artist?.genre}</div>
+                                                    <div className="showInfo"><b>Description:</b> {show?.artist?.artist_description}</div>
+                                                    <div className="showInfo"><b>Stage:</b> {show?.stage?.stage_name}</div>
+                                                    <div className="showInfo"><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
+                                                </div>
+                                            </section>
+                                            <section className="bottomButtons">
+                                                <button className="alterButton" onClick={(evt) => {
+                                                    evt.preventDefault()
+                                                    deleteMyShow(show.id).then(getShows)
+                                                }}>Delete</button>
+                                            </section>
+                                        </div>
+                                    )
+                                })}
+                        </ul>
+                    </article>
+                </> :
+                    <>
+                        <h2 className="showForm_title">Your Friday Schedule</h2>
                         <article>
-                            <ul>
-                                {/* mapping though the users saturday shows and listing off each shows image, 
+                        <div className="topButtons">
+                        <button className="dayButtons" onClick={() => setDay(false)}>Friday</button>
+                        <button className="dayButtons" onClick={() => setDay(true)}>Saturday</button>
+                        </div>
+                            <ul className="showContainer">
+                                {/* mapping though the users friday shows and listing off each shows image, 
                         artist name, genre, description, stage, and show time */}
                                 {
-                                    mySaturdayShows?.map((show) => {
+                                    myFridayShows?.map((show) => {
+
                                         return (
-                                            <div key={`saturdayShow-${show.id}`}>
-                                                <section key={`show-${show.id}`}>
-                                                    <div>
-                                                        <img src={show?.artist.artist_image} alt='show'></img>
+                                            <div className="individualShow" key={`fridayShow-${show.id}`}>
+                                                <section className="showList" key={`show-${show.id}`}>
+                                                    <div className="imageContainer">
+                                                        <img className="showPicture" src={show?.artist?.artist_image} alt='show'></img>
                                                     </div>
-                                                    <div><b>Artist:</b> {show?.artist.artist_name}</div>
-                                                    <div><b>Genre:</b> {show?.artist?.genre}</div>
-                                                    <div><b>Description:</b> {show?.artist?.artist_description}</div>
-                                                    <div><b>Stage:</b> {show?.stage?.stage_name}</div>
-                                                    <div><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
-                                                    <button className="deleteButton" onClick={(evt) => {
-                                                        evt.preventDefault()
-                                                        deleteMyShow(show.id).then(getShows)
-                                                    }}>Delete</button>
-                                                </section>
+                                                    <div className="textContainer">
+                                                        <div className="showInfo"><b>Artist:</b> {show?.artist?.artist_name}</div>
+                                                        <div className="showInfo"><b>Genre:</b> {show?.artist?.genre}</div>
+                                                        <div className="showInfo"><b>Description:</b> {show?.artist?.artist_description}</div>
+                                                        <div className="showInfo"><b>Stage:</b> {show?.stage?.stage_name}</div>
+                                                        <div className="showInfo"><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
+                                                    </div>
+                                                    </section>
+                                                    <section className="bottomButtons">
+                                                        {/* user has the option to delete this show from their lineup */}
+                                                        <button className="alterButton" onClick={(evt) => {
+                                                            evt.preventDefault()
+                                                            deleteMyShow(show.id).then(getShows)
+                                                        }}>Delete</button>
+                                                    </section>
+                                                
                                             </div>
                                         )
                                     })}
                             </ul>
                         </article>
-                    </> :
-                        <>
-                            <h2>Your Friday Schedule</h2>
-                            <article>
-                                <ul>
-                                    {/* mapping though the users friday shows and listing off each shows image, 
-                        artist name, genre, description, stage, and show time */}
-                                    {
-                                        myFridayShows?.map((show) => {
-
-                                            return (
-                                                <div key={`fridayShow-${show.id}`}>
-                                                    <section key={`show-${show.id}`}>
-                                                        <div>
-                                                            <img src={show?.artist?.artist_image} alt='show'></img>
-                                                        </div>
-                                                        <div><b>Artist:</b> {show?.artist?.artist_name}</div>
-                                                        <div><b>Genre:</b> {show?.artist?.genre}</div>
-                                                        <div><b>Description:</b> {show?.artist?.artist_description}</div>
-                                                        <div><b>Stage:</b> {show?.stage?.stage_name}</div>
-                                                        <div><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
-                                                        {/* user has the option to delete this show from their lineup */}
-                                                        <button className="deleteButton" onClick={(evt) => {
-                                                            evt.preventDefault()
-                                                            deleteMyShow(show.id).then(getShows)
-                                                        }}>Delete</button>
-                                                    
-                                                    </section>
-                                                </div>
-                                            )
-                                        })}
-                                </ul>
-                            </article>
-                        </>}
+                    </>}
         </>
     )
 }
