@@ -27,28 +27,28 @@ export const ArtistForm = () => {
     return (
         <>
             <Form>
-                <h2 className="artistForm__artist_name">Create New Artist</h2>
+                <h2 className="showForm_title">Create New Artist</h2>
                 <Form.Group className="mb-3" controlId="formBasicArtist">
-                    <Form.Label>Artist: </Form.Label>
+                    <Form.Label className="profile_edit">Artist: </Form.Label>
                     <Form.Control type="text" name="artist_name" required autoFocus className="form-control" value={currentArtist.artist_name}
                         // when the value of the Form.Control changes we trigger the changeArtistFunction
                         onChange={changeArtistState} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicGenre">
-                    <Form.Label>Genre: </Form.Label>
+                    <Form.Label className="profile_edit">Genre: </Form.Label>
                     <Form.Control type="text" name="genre" required autoFocus className="form-control" value={currentArtist.genre}
                         onChange={changeArtistState} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicDescription">
-                    <Form.Label>Description: </Form.Label>
+                    <Form.Label className="profile_edit">Description: </Form.Label>
                     <Form.Control as="textarea" rows={2} name="artist_description" required autoFocus className="form-control" value={currentArtist.artist_description}
                         onChange={changeArtistState} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicArtistImage">
-                    <Form.Label>Artist Image(URL): </Form.Label>
+                    <Form.Label className="profile_edit">Artist Image(URL): </Form.Label>
                     <Form.Control type="text" name="artist_image" required className="form-control" value={currentArtist.artist_image}
                         onChange={changeArtistState} />
                 </Form.Group>

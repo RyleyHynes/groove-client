@@ -93,7 +93,7 @@ export const ProfileList = (userId) => {
                     return (
                         <div key={`user-${p.id}`}>
                             <section key={`user-${p.id}`}>
-                                <p>Full Name: {p.user.first_name} {p.user.last_name}</p>
+                                <p className="profile_edit">Full Name: {p.user.first_name} {p.user.last_name}</p>
                                 <button onClick={(evt) => {
                                     evt.preventDefault()
                                     editUserActive(p).then(() => setInactive(false)).then(() => getProfiles().then(data => setProfiles(data)))
@@ -117,9 +117,9 @@ export const ProfileList = (userId) => {
                     if (profile.user?.is_active) {
                         return <section className="individualProfiles" key={`profile--${profile.id}`}>
                             <div className="profileList">
-                                <div className="profileAttribute"><b>Full Name</b>: {profile.user.first_name} {profile.user.last_name}</div>
-                                <Link className="profileAttribute" to={`/profiles/${profile.id}`}><b>Username</b>: {profile.user.username}</Link>
-                                <div className="profileAttribute"><b>User Type</b>: {userType(profile.user)}</div>
+                                <div className="profile_edit"><b>Full Name</b>: {profile.user.first_name} {profile.user.last_name}</div>
+                                <Link className="profile_edit" to={`/profiles/${profile.id}`}><b>Username</b>: {profile.user.username}</Link>
+                                <div className="profile_edit"><b>User Type</b>: {userType(profile.user)}</div>
                                 {showUserType === 0 || showUserType != profile.user.id
                                     ? localStorage.getItem('user_id') != profile.user.id
                                         ? <button id={`${profile.user.id}`} onClick={userTypeForm}>Edit User Type</button>
@@ -135,14 +135,14 @@ export const ProfileList = (userId) => {
                                                     setStatus(false)
                                                 }
                                             } />
-                                        <label className="profileAttribute" htmlFor="Author"><b>Author</b></label>
+                                        <label className="profile_edit" htmlFor="Author"><b>Author</b></label>
                                         <input className="profileAttribute" type="radio" id="Admin" name="status" value="Admin"
                                             onChange={
                                                 () => {
                                                     setStatus(true)
                                                 }
                                             } />
-                                        <label className="profileAttribute" htmlFor="Admin"><b>Admin</b></label>
+                                        <label className="profile_edit" htmlFor="Admin"><b>Admin</b></label>
                                         <button className="profileAttribute" onClick={() => userDemoteProcess(profile, status)}>Save</button>
                                         <button className="profileAttribute" onClick={() => setUserType(0)}>Cancel</button>
                                         <br />

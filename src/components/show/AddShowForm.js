@@ -40,9 +40,9 @@ export const ShowForm = () => {
     return (
         <>
             <Form>
-                <h2 className="showForm__artist_name">Create New Show</h2>
+                <h2 className="showForm_title">Create New Show</h2>
                 <Form.Group className="mb-3" controlId="formBasicArtist">
-                    <Form.Label>Artist: </Form.Label>
+                    <Form.Label className="profile_edit">Artist: </Form.Label>
                     <Form.Select className="form-control" name="artist" value={currentShow.artist} required onChange={changeShowState}>
                         <option value="0">Choose Artist</option>
                         {/* mapping through the artists to display as a drop down menu */}
@@ -55,21 +55,21 @@ export const ShowForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicDate">
-                    <Form.Label>Date: </Form.Label>
+                    <Form.Label className="profile_edit">Date: </Form.Label>
                     <input type="date" name="date" required className="form-control" value={currentShow.date}
                         //When the value changes the changeShowState function is triggered
                         onChange={changeShowState} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicStartTime">
-                    <Form.Label>Start Time: </Form.Label>
+                    <Form.Label className="profile_edit">Start Time: </Form.Label>
                     <input type="time" id="appt" name="start_time"
                         min="09:00:00" max="18:00:00" required className="form-control" value={currentShow.start_time}
                         onChange={changeShowState} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicStage">
-                    <Form.Label>Stage: </Form.Label>
+                    <Form.Label className="profile_edit">Stage: </Form.Label>
                     <Form.Select className="form-control" name="stage" value={currentShow.stage} required onChange={changeShowState}>
                         <option value="0">Choose Stage</option>
                         {/* mapping through the stages to display as a drop down menu */}

@@ -44,9 +44,9 @@ export const EditArtist = () => {
     //HTML form the user will see to update the artist
     return <>
         <Form>
-            <h2 className="updateArtist">Update Artist</h2>
+            <h2 className="showForm_title">Update Artist</h2>
             <Form.Group className="mb-3" controlId="formBasicArtist">
-                <Form.Label>Artist Name:</Form.Label>
+                <Form.Label className="profile_edit">Artist Name:</Form.Label>
                 <Form.Control className="input" required autoFocus
                     type="text"
                     value={artist.artist_name}
@@ -56,7 +56,7 @@ export const EditArtist = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicGenre">
-                <Form.Label>Genre:</Form.Label>
+                <Form.Label className="profile_edit">Genre:</Form.Label>
                 <Form.Control className="input" required autoFocus
                     type="text"
                     value={artist.genre}
@@ -65,7 +65,7 @@ export const EditArtist = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicDescription">
-                <Form.Label>Description:</Form.Label>
+                <Form.Label className="profile_edit">Description:</Form.Label>
                 <Form.Control required autoFocus
                     as="textarea" rows={2}
                     value={artist.artist_description}
@@ -74,7 +74,7 @@ export const EditArtist = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicURL">
-                <Form.Label>URL Image:</Form.Label>
+                <Form.Label className="profile_edit">URL Image:</Form.Label>
                 <Form.Control className="input" required autoFocus
                     type="text"
                     value={artist.artist_image}

@@ -52,7 +52,6 @@ export const ProfileDetails = (userId) => {
                         <div className="profile__info"><b>Name</b>: {profile.user?.first_name} {profile.user?.last_name}</div>
                         <div className="profile__info"><b>UserName</b>: {profile.user?.username}</div>
                         <div className="profile__info"><b>Email</b>: {profile.user?.email}</div>
-                        <div className="profile__info"><b>Date Joined</b>: {profile.user?.date_joined}</div>
                         {/* displays the number of shows they have added to their custom schedule */}
                         {currentUserId === profile.user?.id
                             ? <div><b>Show Count</b>: {shows[0]?.shows?.length}</div>
