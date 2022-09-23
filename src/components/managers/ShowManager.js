@@ -8,8 +8,18 @@ export const getSingleShow = (showId) => {
         .then(response => response.json())
 }
 
-export const getSearchShows = (search) => {
-    return fetch(`http://localhost:8000/shows?search=${search}`, {
+export const getSearchFridayShows = (search) => {
+    return fetch(`http://localhost:8000/shows?search=${search}&show_date=2022-10-21`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('groove_token')}`
+        }
+    })
+        .then(res => res.json())
+}
+
+export const getSearchSaturdayShows = (search) => {
+    return fetch(`http://localhost:8000/shows?search=${search}&show_date=2022-10-22`, {
         method: "GET",
         headers: {
             'Authorization': `Token ${localStorage.getItem('groove_token')}`

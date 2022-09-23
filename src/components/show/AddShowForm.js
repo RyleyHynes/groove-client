@@ -42,7 +42,7 @@ export const ShowForm = () => {
             <Form>
                 <h2 className="showForm__artist_name">Create New Show</h2>
                 <Form.Group className="mb-3" controlId="formBasicArtist">
-                    <Form.Label htmlFor="artistId">Artist: </Form.Label>
+                    <Form.Label>Artist: </Form.Label>
                     <Form.Select className="form-control" name="artist" value={currentShow.artist} required onChange={changeShowState}>
                         <option value="0">Choose Artist</option>
                         {/* mapping through the artists to display as a drop down menu */}
@@ -55,7 +55,7 @@ export const ShowForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicDate">
-                    <Form.Label htmlFor="date">Date: </Form.Label>
+                    <Form.Label>Date: </Form.Label>
                     <input type="date" name="date" required className="form-control" value={currentShow.date}
                         //When the value changes the changeShowState function is triggered
                         onChange={changeShowState} />

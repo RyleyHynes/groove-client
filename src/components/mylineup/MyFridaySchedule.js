@@ -48,7 +48,7 @@ export const MyFridaySchedule = () => {
     useEffect(
         () => {
             if (searchTerms !== "") {
-                getSearchMyShows(searchTerms).then(data => setFilteredFridayShow(data))
+                getSearchMyShows(searchTerms).then(data => setFilteredFridayShow(data[0].shows))
             }
             else {
                 setFilteredFridayShow(myFridayShows)
@@ -60,7 +60,7 @@ export const MyFridaySchedule = () => {
     useEffect(
         () => {
             if (searchTerms !== "") {
-                getSearchMyShows(searchTerms).then(data => setFilteredSaturdayShow(data))
+                getSearchMyShows(searchTerms).then(data => setFilteredSaturdayShow(data[0].shows))
             }
             else {
                 setFilteredSaturdayShow(mySaturdayShows)
@@ -94,7 +94,7 @@ export const MyFridaySchedule = () => {
                             {/* mapping though the users saturday shows and listing off each shows image, 
                         artist name, genre, description, stage, and show time */}
                             {
-                                mySaturdayShows?.map((show) => {
+                                filteredSaturdayShow?.map((show) => {
                                     return (
                                         <div className="individualShow" key={`saturdayShow-${show.id}`}>
                                             <section className="showList" key={`show-${show.id}`}>
@@ -143,7 +143,7 @@ export const MyFridaySchedule = () => {
                                 {/* mapping though the users friday shows and listing off each shows image, 
                         artist name, genre, description, stage, and show time */}
                                 {
-                                    myFridayShows?.map((show) => {
+                                    filteredFridayShow?.map((show) => {
 
                                         return (
                                             <div className="individualShow" key={`fridayShow-${show.id}`}>

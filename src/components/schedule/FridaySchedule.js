@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createMyShow } from "../managers/MyShowManager"
 import { getFridaySchedule } from "../managers/ScheduleManager"
-import { deleteShow, getSearchShows } from "../managers/ShowManager"
+import { deleteShow, getSearchFridayShows } from "../managers/ShowManager"
 import "./List.css"
 
 export const FridaySchedule = ({ setStaff }) => {
@@ -36,7 +36,7 @@ export const FridaySchedule = ({ setStaff }) => {
     useEffect(
         () => {
             if (searchTerms !== "") {
-                getSearchShows(searchTerms).then(data => setFilteredFridayShow(data))
+                getSearchFridayShows(searchTerms).then(data => setFilteredFridayShow(data[0].shows))
             }
             else {
                 setFilteredFridayShow(shows)
@@ -90,7 +90,7 @@ export const FridaySchedule = ({ setStaff }) => {
             <article>
                 <ul className="showContainer">
                     {/* mapping through each show and displaying its information */}
-                    {shows.map((show) => {
+                    {filteredFridayShow.map((show) => {
                         return (
                             <div className="individualShow" key={`show-${show.id}`}>
                                 <section className="showList" key={`show-${show.id}`}>

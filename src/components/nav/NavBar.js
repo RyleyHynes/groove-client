@@ -20,7 +20,7 @@ export const NavBar = ({ token, setToken, setStaff }) => {
     //     })
     // }
     const [staff, setStaffState] = useState()
-
+console.log(token)
     //getting the is_staff property out of local storage for the current user and setting it to the staff state
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
@@ -63,14 +63,14 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                     </>
                     :
                     ""
-            }
+                }
             
                         {/*initial login / register page navbar*/}
                         {
                             token
                                 ? <>
-                                    <button  onClick={() => {
-                                        setToken('')
+                                <button  onClick={() => {
+                                    setToken('')
                                         setStaff('')
                                         navigate('/login')
                                     }}>Logout</button>
@@ -86,6 +86,7 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                                 </Nav.Item>
                                 </>
                         }
+                        
         </Nav>
     )
 }

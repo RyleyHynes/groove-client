@@ -10,9 +10,9 @@ export const getProfiles = () => {
 
 /*Getter function for profile with current users shows*/
 export const getProfileShows = (profileId) => {
-    return fetch(`http://localhost:8000/myShows?user=${profileId}`, {
+    return fetch(`http://localhost:8000/myshows?user=${profileId}`, {
         headers: {
-            "Authorization": `Token ${localStorage.getItem("auth_token")}`
+            "Authorization": `Token ${localStorage.getItem("groove_token")}`
         }
     })
         .then(response => response.json())

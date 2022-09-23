@@ -27,6 +27,7 @@ export const EditProfile = () => {
             data.last_name=data.user.last_name
             data.email=data.user.email
             data.username=data.user.username
+            data.profile_image=data.user.profile_image
 
             setEditProfile(data)})
     }, [])
@@ -50,7 +51,7 @@ export const EditProfile = () => {
         const createImageString = (event) => {
             getBase64(event.target.files[0], (base64ImageString) => {
                 const copy = { ...profile } //creating a copy of the profile state
-                copy.data = base64ImageString
+                copy.profile_image = base64ImageString
                 setEditProfile(copy)
             })
         }

@@ -8,6 +8,7 @@ export const getMyShows = () => {
         .then(res => res.json())
 }
 
+
 export const getSearchMyShows = (search) => {
     return fetch(`http://localhost:8000/myshows?user=${localStorage.getItem('groove_user')}&search=${search}`, {
         method: "GET",

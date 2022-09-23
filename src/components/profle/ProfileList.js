@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { checkDeactive, checkDemoted, createDeactive, createDemotion, editUserActive, editUserStatus, getProfiles, updateDeactive, updateDemotion } from "../managers/ProfileManager"
-import Alert from 'react-bootstrap/Alert';
+
 
 //function that lists all the users profiles
 export const ProfileList = (userId) => {
@@ -43,6 +43,7 @@ export const ProfileList = (userId) => {
     }
 
     const userTypeForm = (evt) => {
+        debugger
         setUserType(parseInt(evt.target.id))
     }
 
@@ -107,9 +108,9 @@ export const ProfileList = (userId) => {
 
             : <></>
         }
-        <article className="profiles">
-            <br />
             <h2 className="showForm_title"><b>Active Users</b></h2>
+        <article className="profiles2">
+        <br />
             {
                 
                 profiles.sort(((a, b) => { return a.user.username.localeCompare(b.user.username) })).map(profile => {
@@ -119,10 +120,9 @@ export const ProfileList = (userId) => {
                                 <div className="profileAttribute"><b>Full Name</b>: {profile.user.first_name} {profile.user.last_name}</div>
                                 <Link className="profileAttribute" to={`/profiles/${profile.id}`}><b>Username</b>: {profile.user.username}</Link>
                                 <div className="profileAttribute"><b>User Type</b>: {userType(profile.user)}</div>
-                                
-                                {showUserType === 0 || showUserType != profile.id
-                                    ? localStorage.getItem('user_id') != profile.id
-                                        ? <button className="profileAttribute" id={profile.id} onClick={(evt) => userTypeForm(evt)}><b>Edit User Type</b></button>
+                                {showUserType === 0 || showUserType != profile.user.id
+                                    ? localStorage.getItem('user_id') != profile.user.id
+                                        ? <button id={`${profile.user.id}`} onClick={userTypeForm}>Edit User Type</button>
                                         : <></>
                                     : <></>
                                 }
