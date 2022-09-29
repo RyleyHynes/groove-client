@@ -1,71 +1,32 @@
-# Getting Started with Create React App
+# **Groove**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **Full Stack Capstone for Nashville Software School**
 
-## Available Scripts
+Groove is a music festival applications which allows users to customize their schedules based on this years lineup. Users have the ability to add and remove shows from their lineup as well as edit their profile personal information. Staff members at Groove have the ability to create, edit, update and delete shows and artists to this years schedule. Staff members can also see all active Groove users and can use a two step verification process to demote or deactivate a user. 
 
-In the project directory, you can run:
+### **Installation**
 
-### `npm start`
+1) Clone the repository ` git clone git@github.com:RyleyHynes/groove-client.git`
+2) cd into the corresponding directory `cd groove-client`
+3) `npm install` 
+4) Client side of for the project located at [Server Side LINK](https://github.com/RyleyHynes/groove-server) with instructions to clone and run
+5) `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### **Tech Stack** 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* JavaScript
+* React
+* HTML
+* CSS
+* [Bootstap]https://getbootstrap.com/
+* [React Bootstrap](https://react-bootstrap.github.io/getting-started/introduction)
+* Python
+* Django
+* Git
+* Github
 
-### `npm test`
+### **Initial WireFrame**
+[Miro Wireframe](https://miro.com/app/board/uXjVPa2zmLg=/) 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# groove-client
+### **Initial ERD**
+[DrawSQL ERD](https://drawsql.app/teams/rh-nss/diagrams/groove)
