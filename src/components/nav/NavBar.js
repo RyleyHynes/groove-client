@@ -1,26 +1,14 @@
-import { Link, useNavigate } from "react-router-dom"
-import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
 import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from 'react-bootstrap/Button';
+
 
 //function for the nav bar which accepts 3 props
 export const NavBar = ({ token, setToken, setStaff }) => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
-
-    // const [selectionBorder, setSelection] = useState({
-    //     selection:"home",
-    //     style: "border-2 border-blue"
-    // })
-
-    // const handleChange = (selection) => {
-    //     setSelection({
-    //         ...selectionBorder, selection
-    //     })
-    // }
     const [staff, setStaffState] = useState()
-console.log(token)
+    
     //getting the is_staff property out of local storage for the current user and setting it to the staff state
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
