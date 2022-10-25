@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getArtists } from "../managers/ArtistManager"
-import { createNewShow} from "../managers/ShowManager"
+import { createNewShow } from "../managers/ShowManager"
 import { getStages } from "../managers/StageManager"
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 
 export const ShowForm = () => {
@@ -29,7 +31,7 @@ export const ShowForm = () => {
 
     //function to change copy of the initial currentShow state and set the new currentShow value to the state
     const changeShowState = (domEvent) => {
-        const newShow = {...currentShow} //creating a copy of the initial currentShow state
+        const newShow = { ...currentShow } //creating a copy of the initial currentShow state
         newShow[domEvent.target.name] = domEvent.target.value
         setCurrentShow(newShow)
     }
@@ -37,71 +39,65 @@ export const ShowForm = () => {
     //HTML for the create new show form
     return (
         <>
-        <form className="showForm">
-            <h2 className="showForm__artist_name">Create New Show</h2>
-            <fieldset>
-                <div>
-                <label htmlFor="artistId">Artist: </label>
-                    <select className="form-control" name="artist" value={currentShow.artist} required onChange={changeShowState}>
-                    <option value="0">Choose Artist</option>
-                    {/* mapping through the artists to display as a drop down menu */}
-                    {
-                        artists.map(artist => {
-                            return <option value={artist.id} key={`artist--${artist.id}`}>{artist.artist_name}</option>
-                        })
-                    }
-                    </select>
-                </div>
-            </fieldset>
+            <Form>
+                <h2 className="showForm_title">Create New Show</h2>
+                <Form.Group className="mb-3" controlId="formBasicArtist">
+                    <Form.Label className="profile_edit">Artist: </Form.Label>
+                    <Form.Select className="form-control" name="artist" value={currentShow.artist} required onChange={changeShowState}>
+                        <option value="0">Choose Artist</option>
+                        {/* mapping through the artists to display as a drop down menu */}
+                        {
+                            artists.map(artist => {
+                                return <option value={artist.id} key={`artist--${artist.id}`}>{artist.artist_name}</option>
+                            })
+                        }
+                    </Form.Select>
+                </Form.Group>
 
-            <fieldset>
-                <div className="form-group">
-                <label htmlFor="date">Date: </label>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Date: </Form.Label>
                     <input type="date" name="date" required className="form-control" value={currentShow.date}
                         //When the value changes the changeShowState function is triggered
                         onChange={changeShowState} />
-                </div>
-            </fieldset>
+                </Form.Group>
 
-            <fieldset>
-                <div>
-                <label htmlFor="start_time">Start Time: </label>
-                <input type="time" id="appt" name="start_time"
-                    min="09:00:00" max="18:00:00" required className="form-control" value={currentShow.start_time}
-                    onChange={changeShowState} />
-                </div>
-            </fieldset>
+                <Form.Group className="mb-3" controlId="formBasicStartTime">
+                    <Form.Label className="profile_edit">Start Time: </Form.Label>
+                    <input type="time" id="appt" name="start_time"
+                        min="09:00:00" max="18:00:00" required className="form-control" value={currentShow.start_time}
+                        onChange={changeShowState} />
+                </Form.Group>
 
-            <fieldset>
-                <div>
-                <label htmlFor="stageId">Stage: </label>
-                    <select className="form-control" name="stage" value={currentShow.stage} required onChange={changeShowState}>
-                    <option value="0">Choose Stage</option>
-                    {/* mapping through the stages to display as a drop down menu */}
-                    {
-                        stages.map(stage => {
-                            return <option value={stage.id} key={`stage--${stage.id}`}>{stage.stage_name}</option>
-                        })
+                <Form.Group className="mb-3" controlId="formBasicStage">
+                    <Form.Label className="profile_edit">Stage: </Form.Label>
+                    <Form.Select className="form-control" name="stage" value={currentShow.stage} required onChange={changeShowState}>
+                        <option value="0">Choose Stage</option>
+                        {/* mapping through the stages to display as a drop down menu */}
+                        {
+                            stages.map(stage => {
+                                return <option value={stage.id} key={`stage--${stage.id}`}>{stage.stage_name}</option>
+                            })
+                        }
+                    </Form.Select>
+                </Form.Group>
+
+                <Button variant="primary" type="submit" onClick={event => {
+                    event.preventDefault() //preventing browser reload/refresh
+                    //show object to be sent to the API
+                    const show = {
+                        artist: parseInt(currentShow.artist),
+                        date: currentShow.date,
+                        start_time: currentShow.start_time,
+                        stage: parseInt(currentShow.stage)
                     }
-                    </select>
-                </div>
-            </fieldset>
-
-            <button type="submit" onClick={event => {
-                event.preventDefault() //preventing browser reload/refresh
-                //show object to be sent to the API
-                const show = {
-                    artist: parseInt(currentShow.artist),
-                    date: currentShow.date,
-                    start_time: currentShow.start_time,
-                    stage: parseInt(currentShow.stage)
-                }
-                /*Invoking the POST method with the show object and then navigating to fridaysSchedule*/
-                createNewShow(show)
-                    .then(() => navigate("/fridaySchedule"))
-            }}
-                className="btn btn-primary">Create Show</button>
-        </form>
+                    /*Invoking the POST method with the show object and then navigating to fridaysSchedule*/
+                    createNewShow(show)
+                        .then(() => navigate("/fridaySchedule"))
+                }}
+                    className="btn btn-primary">Create Show</Button>
+                {/* when cancel is clicked it navigates the user back to the friday schedule */}
+                <Button onClick={() => navigate("/fridaySchedule")}>Cancel</Button>
+            </Form>
         </>
     )
 }

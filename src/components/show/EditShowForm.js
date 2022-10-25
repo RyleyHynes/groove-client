@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router"
 import { getArtists } from "../managers/ArtistManager"
 import { getSingleShow, updateShow } from "../managers/ShowManager"
 import { getStages } from "../managers/StageManager"
+import Button from 'react-bootstrap/Button';
 
 export const EditShow = () => {
     //setting up initial state for stages
@@ -52,10 +53,10 @@ export const EditShow = () => {
     //HTML for the edit show form
     return <>
         <form className="showForm">
-            <h2 className="showForm__artist_name">Edit Show</h2>
+            <h2 className="showForm_title">Edit Show</h2>
             <fieldset>
                 <div>
-                <label htmlFor="artistId">Artist: </label>
+                <label className="profile_edit" htmlFor="artistId">Artist: </label>
                     <select className="form-control" name="artist" value={show.artist?.id} required onChange={changeShowState}>
                     <option value="0">Choose Artist</option>
                     {/* mapping through the artists to display as a drop down menu */}
@@ -70,7 +71,7 @@ export const EditShow = () => {
 
             <fieldset>
                 <div className="form-group">
-                <label htmlFor="date">Date: </label>
+                <label className="profile_edit" htmlFor="date">Date: </label>
                     <input type="date" name="date" required className="form-control" value={show.date}
                         onChange={changeShowState} />
                 </div>
@@ -78,7 +79,7 @@ export const EditShow = () => {
 
             <fieldset>
                 <div>
-                <label htmlFor="start_time">Start Time: </label>
+                <label className="profile_edit" htmlFor="start_time">Start Time: </label>
                 <input type="time" id="appt" name="start_time"
                     min="09:00:00" max="18:00:00" required className="form-control" value={show.start_time}
                     onChange={changeShowState} />
@@ -87,7 +88,7 @@ export const EditShow = () => {
 
             <fieldset>
                 <div>
-                <label htmlFor="stageId">Stage: </label>
+                <label className="profile_edit" htmlFor="stageId">Stage: </label>
                     <select className="form-control" name="stage" value={show.stage?.id} required onChange={changeShowState}>
                     <option value="0">Choose Stage</option>
                     {/* mapping through the stages to display as a drop down menu */}
@@ -100,13 +101,13 @@ export const EditShow = () => {
                 </div>
             </fieldset>
 
-            <button type="submit"
+            <Button type="submit"
                 onClick={handleSubmit} //when save is clicked the handleSubmit function is triggered
                 className="button is-success">
                 Save
-            </button>
+            </Button>
             {/* when cancel is clicked it navigates the user back to the friday schedule */}
-            <button onClick={() => navigate("/fridaySchedule")}>Cancel</button>
+            <Button onClick={() => navigate("/fridaySchedule")}>Cancel</Button>
         </form>
     </>
 }

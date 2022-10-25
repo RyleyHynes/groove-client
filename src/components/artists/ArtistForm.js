@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createNewArtist } from "../managers/ArtistManager"
-
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 //function to display the form for a new artist submission MVP
 export const ArtistForm = () => {
@@ -25,45 +26,37 @@ export const ArtistForm = () => {
     //HTML for the artist form that the user sees
     return (
         <>
-            <form className="artistForm">
-                <h2 className="artistForm__artist_name">Create New Artist</h2>
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="artist_name">Artist: </label>
-                        <input type="text" name="artist_name" required autoFocus className="form-control" value={currentArtist.artist_name}
-                            // when the value of the input changes we trigger the changeArtistFunction
-                            onChange={changeArtistState} />
-                    </div>
-                </fieldset>
+            <Form>
+                <h2 className="showForm_title">Create New Artist</h2>
+                <Form.Group className="mb-3" controlId="formBasicArtist">
+                    <Form.Label className="profile_edit">Artist: </Form.Label>
+                    <Form.Control type="text" name="artist_name" required autoFocus className="form-control" value={currentArtist.artist_name}
+                        // when the value of the Form.Control changes we trigger the changeArtistFunction
+                        onChange={changeArtistState} />
+                </Form.Group>
 
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="genre">Genre: </label>
-                        <input type="text" name="genre" required autoFocus className="form-control" value={currentArtist.genre}
-                            onChange={changeArtistState} />
-                    </div>
-                </fieldset>
+                <Form.Group className="mb-3" controlId="formBasicGenre">
+                    <Form.Label className="profile_edit">Genre: </Form.Label>
+                    <Form.Control type="text" name="genre" required autoFocus className="form-control" value={currentArtist.genre}
+                        onChange={changeArtistState} />
+                </Form.Group>
 
-                <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="artist_description">Description: </label>
-                        <input type="text" name="artist_description" required autoFocus className="form-control" value={currentArtist.artist_description}
-                            onChange={changeArtistState} />
-                    </div>
-                </fieldset>
+                <Form.Group className="mb-3" controlId="formBasicDescription">
+                    <Form.Label className="profile_edit">Description: </Form.Label>
+                    <Form.Control as="textarea" rows={2} name="artist_description" required autoFocus className="form-control" value={currentArtist.artist_description}
+                        onChange={changeArtistState} />
+                </Form.Group>
 
-                <fieldset>
-                    <label htmlFor="artist_image">Artist Image(URL): </label>
-                    <div>
-                        <input type="text" name="artist_image" required className="form-control" value={currentArtist.artist_image}
-                            onChange={changeArtistState} />
-                    </div>
-                </fieldset>
+                <Form.Group className="mb-3" controlId="formBasicArtistImage">
+                    <Form.Label className="profile_edit">Artist Image(URL): </Form.Label>
+                    <Form.Control type="text" name="artist_image" required className="form-control" value={currentArtist.artist_image}
+                        onChange={changeArtistState} />
+                </Form.Group>
 
-                <button type="submit" onClick={event => {
+                <Button variant="primary" type="submit" onClick={event => {
                     //preventing browser reload/refresh
                     event.preventDefault()
-                    
+
                     //artist object to be sent to API
                     const artist = {
                         artist_name: currentArtist.artist_name,
@@ -75,8 +68,10 @@ export const ArtistForm = () => {
                     createNewArtist(artist)
                         .then(() => navigate("/artistList")) //navigating back to the artist list after submission
                 }}
-                    className="btn btn-primary">Create Artist</button>
-            </form>
+                    className="btn btn-primary">Create Artist</Button>
+                {/* when cancel is clicked it navigates the user back to the artist list */}
+                <Button onClick={() => navigate("/artistList")}>Cancel</Button>
+            </Form>
         </>
     )
 }

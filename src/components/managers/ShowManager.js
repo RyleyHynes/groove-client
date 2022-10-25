@@ -8,6 +8,28 @@ export const getSingleShow = (showId) => {
         .then(response => response.json())
 }
 
+export const getSearchFridayShows = (search) => {
+    return fetch(`http://localhost:8000/shows?search=${search}&show_date=2022-10-21`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('groove_token')}`
+        }
+    })
+        .then(res => res.json())
+}
+
+export const getSearchSaturdayShows = (search) => {
+    return fetch(`http://localhost:8000/shows?search=${search}&show_date=2022-10-22`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('groove_token')}`
+        }
+    })
+        .then(res => res.json())
+}
+
+
+
 /*POST function for creating a new show*/
 export const createNewShow = (show) => {
     return fetch("http://localhost:8000/shows", {

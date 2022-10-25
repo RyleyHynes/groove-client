@@ -27,6 +27,7 @@ export const EditProfile = () => {
             data.last_name=data.user.last_name
             data.email=data.user.email
             data.username=data.user.username
+            data.profile_image=data.user.profile_image
 
             setEditProfile(data)})
     }, [])
@@ -50,7 +51,7 @@ export const EditProfile = () => {
         const createImageString = (event) => {
             getBase64(event.target.files[0], (base64ImageString) => {
                 const copy = { ...profile } //creating a copy of the profile state
-                copy.data = base64ImageString
+                copy.profile_image = base64ImageString
                 setEditProfile(copy)
             })
         }
@@ -64,10 +65,11 @@ export const EditProfile = () => {
         //HTML for the edit profile form 
         return <>
             <form className="showForm">
-                <h2 className="showForm__artist_name">Edit Profile</h2>
+                <section className="editProfileSection">
+                <h2 className="showForm_title"><b>Edit Profile</b></h2>
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="first_name" className="label">First Name:</label>
+                        <label htmlFor="first_name" className="profile_edit"><b>First Name: </b></label>
                         <div className="control">
                             <input className="input" required autoFocus
                                 type="text"
@@ -81,7 +83,7 @@ export const EditProfile = () => {
 
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="last_name" className="label">Last Name:</label>
+                        <label htmlFor="last_name" className="profile_edit"><b>Last Name: </b></label>
                         <div className="control">
                             <input className="input" required autoFocus
                                 type="text"
@@ -94,7 +96,7 @@ export const EditProfile = () => {
 
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="email" className="label">Email:</label>
+                        <label htmlFor="email" className="profile_edit"><b>Email: </b></label>
                         <div className="control">
                             <input className="input" required autoFocus
                                 type="text"
@@ -107,7 +109,7 @@ export const EditProfile = () => {
 
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="username" className="label">UserName:</label>
+                        <label htmlFor="username" className="profile_edit"><b>UserName: </b></label>
                         <div className="control">
                             <input className="input" required autoFocus
                                 type="text"
@@ -119,7 +121,7 @@ export const EditProfile = () => {
                 </fieldset>
 
                 <fieldset>
-                <h3>Choose Profile Image:</h3>
+                <h3 className="profile_edit">Choose Profile Image:</h3>
                 <input type="file" id="data" name="action_pic" onChange={createImageString} />
                 <input type="hidden" name="data" value={profile.profile_image} /> 
                 </fieldset>
@@ -133,6 +135,7 @@ export const EditProfile = () => {
 
                 {/* when cancel is clicked it navigates the user back to the users profile */}
                 <button onClick={() => navigate(`/profiles/${profile.id}`)}>Cancel</button>
+                </section>
             </form>
         </>
 }

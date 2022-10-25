@@ -18,6 +18,16 @@ export const getSingleArtist = (artistId) => {
         .then(response => response.json())
 }
 
+export const getSearchArtists = (search) => {
+    return fetch(`http://localhost:8000/artists?search=${search}`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('groove_token')}`
+        }
+    })
+        .then(res => res.json())
+}
+
 /* POST Function for creation of new artist*/
 export const createNewArtist = (artist) => {
     return fetch("http://localhost:8000/artists", {

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../managers/AuthManager"
+import "./Login.css"
 
 /*Login is a function that accepts two props to register new users*/
 export const Login = ({ setToken, setUserId }) => {
@@ -9,7 +10,7 @@ export const Login = ({ setToken, setUserId }) => {
     to store a mutable value that does not cause a re-render when updated */
     const username = useRef()
     const password = useRef()
-    
+
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
@@ -43,41 +44,47 @@ export const Login = ({ setToken, setUserId }) => {
 
     //HTML that user sees on the login page
     return (
-        <section className="columns is-centered">
-            {/* When the form is submitted, the handleLogin function is triggered */}
-            <form className="column is-two-thirds" onSubmit={handleLogin}>
-                <h1 className="title">Groove Fest 2022</h1>
-                <p className="subtitle">Please sign in</p>
+        <section>
+            <div className="Auth-form-container">
+                {/* When the form is submitted, the handleLogin function is triggered */}
+                <form className="Auth-form" onSubmit={handleLogin}>
+                    <div className="Auth-form-content">
 
-                <div className="field">
-                    <label className="label">Username</label>
-                    <div className="control">
-                        {/* ref attribute = element to access it directly in the DOM. */}
-                        <input className="input" type="text" ref={username} />
-                    </div>
-                </div>
 
-                <div className="field">
-                    <label className="label">Password</label>
-                    <div className="control">
-                        <input className="input" type="password" ref={password} />
-                    </div>
-                </div>
+                        <h1 className="Auth-form-title">Groove Fest 2022</h1>
+                        <h2 className="Auth-form-title">Please sign in</h2>
 
-                <div className="field is-grouped">
-                    <div className="control">
-                        <button className="button is-link" type="submit" >Submit</button>
+                        <div className="form-group mt-3">
+                            <label>Username</label>
+                            <div >
+                                {/* ref attribute = element to access it directly in the DOM. */}
+                                <input className="form-control mt-1" type="text" ref={username} />
+                            </div>
+                        </div>
+
+                        <div className="form-group mt-3">
+                            <label>Password</label>
+                            <div className="control">
+                                <input className="form-control mt-1" type="password" ref={password} />
+                            </div>
+                        </div>
+
+
+                        <div className="d-grid gap-2 mt-3">
+                            <button className="btn btn-primary" type="submit" >Submit</button>
+                        </div>
+                        <div className="control">
+                            {/* cancels registration and brings you back to login */}
+                            <Link to="/register" className="forgot-password text-right mt-2">New User? Register Here</Link>
+                        </div>
+
+                        {/* if the state of isUnsuccessful changes to true we have a pop up saying invalid, otherwise it shows an empty string aka nothing */}
+                        {
+                            isUnsuccessful ? <p className="help is-danger">Username or password not valid</p> : ''
+                        }
                     </div>
-                    <div className="control">
-                        {/* cancels registration and brings you back to login */}
-                        <Link to="/register" className="button is-link is-light">Cancel</Link>
-                    </div>
-                </div>
-                {/* if the state of isUnsuccessful changes to true we have a pop up saying invalid, otherwise it shows an empty string aka nothing */}
-                {
-                    isUnsuccessful ? <p className="help is-danger">Username or password not valid</p> : ''
-                }
-            </form>
+                </form>
+            </div>
         </section>
     )
 }

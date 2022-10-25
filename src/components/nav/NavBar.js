@@ -1,87 +1,80 @@
-import { Link, useNavigate } from "react-router-dom"
-import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+import Nav from 'react-bootstrap/Nav'
+
 
 //function for the nav bar which accepts 3 props
 export const NavBar = ({ token, setToken, setStaff }) => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
-    const navbar = useRef()
-    const hamburger = useRef()
     const [staff, setStaffState] = useState()
-
+    
     //getting the is_staff property out of local storage for the current user and setting it to the staff state
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
     }, [setStaff])
 
-    const showMobileNavbar = () => {
-        hamburger.current.classList.toggle('is-active')
-        navbar.current.classList.toggle('is-active')
-    }
-
     //HTML for the navbar 
     return (
-        <nav className="navbar is-success mb-3" role="navigation" aria-label="main navigation">
-            <div className="navbar-brand">
-                <a className="navbar-item" href="/">
-                    <h1 className="title is-4">Groove Fest</h1> 
-                </a>
+        <Nav fill variant="pills" defaultActiveKey={window.location.pathname}>
+            {
+                token
+                    ? <>
+                        <Nav.Item>
+                            <Nav.Link href="/home"><b>Home</b></Nav.Link>
+                        </Nav.Item>
 
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={showMobileNavbar} ref={hamburger}>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
+                        <Nav.Item>
+                            <Nav.Link href="/fridaySchedule"><b>Groove Schedule</b></Nav.Link>
+                        </Nav.Item>
 
-            <div className="navbar-menu" ref={navbar}>
-                <div className="navbar-start">
-                    {
-                        token
-                            ? <>
-                                <Link to="/home" className="navbar-item">Home</Link>
-                                <Link to="/fridaySchedule" className="navbar-item">Groove Schedule</Link>
-                                <Link to="/myFridaySchedule" className="navbar-item">My Schedule</Link>
-                                <Link to={`/profiles/${localStorage.getItem("user_id")}`} className="navbar-item">Profile</Link> 
-                                {/* if the user is staff they will also have the below nav bar options */}
-                                {staff === "true"
-                                ?
-                                <>
-                                <Link to="/profiles" className="navbar-item">User Profiles</Link>
-                                <Link to="/artistList" className="navbar-item">Artist List</Link>
-                                </>
-                                    :  <></>
-                                }
+                        <Nav.Item>
+                            <Nav.Link href="/myFridaySchedule"><b>My Schedule</b></Nav.Link>
+                        </Nav.Item>
+
+                        {/* if the user is staff they will also have the below nav bar options */}
+                        {staff === "true"
+                            ?
+                            <>
+                                <Nav.Item>
+                                    <Nav.Link href="/artistList" className="navbar-item"><b>Artist List</b></Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link href="/profiles" className="navbar-item"><b>User Profiles</b></Nav.Link>
+                                </Nav.Item>
                             </>
-                            :
-                            ""
-                    }
-                </div>
+                            : <></>
+                        }
+                        <Nav.Item>
+                            <Nav.Link href={`/profiles/${localStorage.getItem("user_id")}`} className="navbar-item"><b>Profile</b></Nav.Link>
+                        </Nav.Item>
+                    </>
+                    :
+                    ""
+                }
+            
+                        {/*initial login / register page navbar*/}
+                        {
+                            token
+                                ? <>
+                                <button  onClick={() => {
+                                    setToken('')
+                                        setStaff('')
+                                        navigate('/login')
+                                    }}>Logout</button>
+                                </>
+                                :
+                                <>
+                                <Nav.Item>
+                                    <Nav.Link href="/register"><b>Register</b></Nav.Link>
+                                </Nav.Item>
 
-                <div className="navbar-end">
-                    <div className="navbar-item">
-                        <div className="buttons">
-                            {/*initial login / register page navbar*/}
-                            {
-                                token
-                                    ? <>
-                                        <button className="button is-outlined" onClick={() => {
-                                            setToken('')
-                                            setStaff('')
-                                            navigate('/login')
-                                        }}>Logout</button>
-                                    </>
-                                    :
-                                    <>
-                                        <Link to="/register" className="button is-link">Register</Link>
-                                        <Link to="/login" className="button is-outlined">Login</Link>
-                                    </>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+                                <Nav.Item>
+                                    <Nav.Link href="/login"><b>Login</b></Nav.Link>
+                                </Nav.Item>
+                                </>
+                        }
+                        
+        </Nav>
     )
 }
