@@ -37,19 +37,18 @@ export const ProfileList = (userId) => {
         }
     }
 
-
+    // will be invoke later to show the inactive users when button is clicked
     const userInactive = () => {
         setInactive(!showInactive)
     }
 
     const userTypeForm = (evt) => {
-        debugger
         setUserType(parseInt(evt.target.id))
     }
 
+    // two step authentication process. if second user approves then they are demoted, otherwise window alert
     const userDemoteProcess = (profile, status) => {
         checkDemoted(profile).then((data) => {
-            console.log(data)
             if ((data.length !== 0) && (data[0]?.approveUser.id != localStorage.getItem('user_id'))) {
                 data[0].secondApproveUser = localStorage.getItem('user_id')
                 updateDemotion(data[0]).then(() => editUserStatus(profile, status).then(() => {
@@ -61,11 +60,12 @@ export const ProfileList = (userId) => {
                     demotedUser: profile.id,
                     approveUser: localStorage.getItem('user_id')
                 }
-                createDemotion(demote).then(() => window.alert(`one more admin needed to confirm deactivation`))
+                createDemotion(demote).then(() => window.alert(`one more admin needed to confirm demotion`))
             }
         })
     }
 
+    // two step authentication process. if second user approves then they are deactivated, otherwise window alert
     const userDeactiveProcess = (profile) => {
         checkDeactive(profile).then((data) => {
             if ((data.length !== 0) && (data[0]?.approveUser != localStorage.getItem('user_id'))) {
