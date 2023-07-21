@@ -1,15 +1,17 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createNewArtist } from "../managers/ArtistManager"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { Artist } from "../../config/interfaces";
+
 
 //function to display the form for a new artist submission MVP
 export const ArtistForm = () => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
     //assigning the currentArtist state to an object of key value pairs that are all set to empty strings
-    const [currentArtist, setCurrentArtist] = useState({
+    const [currentArtist, setCurrentArtist] = useState<Artist>({
         artist_name: "",
         genre: "",
         artist_description: "",
@@ -17,9 +19,9 @@ export const ArtistForm = () => {
     })
 
     //function to change copy of the initial state and set it to the state
-    const changeArtistState = (domEvent) => {
-        const newArtist = { ...currentArtist } //creating a copy of the initial state
-        newArtist[domEvent.target.name] = domEvent.target.value
+    const changeArtistState = (domEvent: React.ChangeEvent<HTMLInputElement>): void => {
+        const newArtist: Artist = { ...currentArtist } //creating a copy of the initial state
+        newArtist[domEvent.target.name as keyof Artist] = domEvent.target.value
         setCurrentArtist(newArtist)
     }
 

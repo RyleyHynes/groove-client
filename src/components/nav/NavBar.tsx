@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 
 
 //function for the nav bar which accepts 3 props
-export const NavBar = ({ token, setToken, setStaff }) => {
+export const NavBar = ({ token, setToken, setIsStaff }) => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
     const [staff, setStaffState] = useState()

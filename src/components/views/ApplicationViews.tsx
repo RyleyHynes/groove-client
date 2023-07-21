@@ -14,6 +14,7 @@ import { SaturdaySchedule } from "../schedule/SaturdaySchedule"
 import { ShowForm } from "../show/AddShowForm"
 import { EditShow } from "../show/EditShowForm"
 import { Authorized } from "./Authorized"
+import React from "react"
 
 
 //Function which checks authorization and then houses the routes to all the different elements
